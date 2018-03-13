@@ -12,6 +12,7 @@ package assignment4;
  * Fall 2016
  */
 
+import java.util.List;
 import java.util.Scanner;
 import java.io.*;
 
@@ -73,18 +74,38 @@ public class Main {
         System.out.print("critters>");
         
         String input = kb.nextLine();
+        
+        
+        
+        
         while (!input.equals("quit")) {
         	String[] parsedString = input.split("\\s+");
+        	
+        	
+        	//show command
         	if(parsedString[0].equals("show")) {
-        		Critter.displayWorld();
+        		if (parsedString.length <= 1) {
+            		Critter.displayWorld();
+        		}
+        		else {
+        			System.out.println("invalid command: " + input);
+        		}
         	}
-        	if(parsedString[0].equals("step")) {
-        		
-        		if (parsedString.length > 1) {
-	        		if(stringIsInt(parsedString[1])) {
-	        			for (int i = 0; i < Integer.parseInt(parsedString[1]); i++) {
-	        				Critter.worldTimeStep();
-	        			}
+        	
+        	//step command
+        	else if(parsedString[0].equals("step")) {
+        		if (parsedString.length <= 2) {
+	        		if (parsedString.length > 1) {
+		        		if(stringIsInt(parsedString[1])) {
+		        			for (int i = 0; i < Integer.parseInt(parsedString[1]); i++) {
+		        				Critter.worldTimeStep();
+		        			}
+		        		}
+		        		
+		        		else {
+		        			System.out.println("invalid command: " + input);
+		        		}
+		        		
 	        		}
 	        		
 	        		else {
@@ -92,12 +113,100 @@ public class Main {
 	        		}
         		}
         		
+        		else {
+        			System.out.println("invalid command: " + input);
+        		}
+        		
+        	}
+        	
+        	
+        	
+        	//seed command
+        	else if (parsedString[0].equals("seed")) {
+        		if(parsedString.length <= 2) {
+	        		if(stringIsInt(parsedString[1])) {
+	        			Critter.setSeed(Integer.parseInt(parsedString[1]));
+	        		}
+	        		else {
+	        			System.out.println("invalid command: " + input);
+	        		}
+        		}
+        		else {
+        			System.out.println("invalid command: " + input);
+        		}
+        	}
+        	
+        	
+        	
+        	
+        	//make command
+        	else if(parsedString[0].equals("make")) {
+        		//make sure command has the right number of arguments
+        		if(parsedString.length <= 3 && parsedString.length > 1) {
+        			
+        			//if there is no number argument
+        			if (parsedString.length <= 2) {
+        				try {
+        					Critter.makeCritter(parsedString[1]);
+        				}
+        				catch (InvalidCritterException e) {
+                			System.out.println("error processing: " + input);
+        				}
+        			}
+        			
+        			//if there is a number argument
+        			else {
+        				if (stringIsInt(parsedString[2])) {
+        					int numCrittersToMake = Integer.parseInt(parsedString[2]);
+        					try {
+	        					for (int i = 0; i < numCrittersToMake; i++) {
+	            					Critter.makeCritter(parsedString[1]);
+	        					}
+        					}
+        					catch (InvalidCritterException e) {
+                    			System.out.println("error processing: " + input);
+            				}
+        				}
+        			}
+        			
+        		}
+        		
+        		else {
+        			System.out.println("invalid command: " + input);
+        		}
+        	}
+        	
+        	
+        	
+        	//stats command
+        	else if(parsedString[0].equals("stats") && parsedString.length == 2) {
+        		try{
+        			List<Critter> listOfCrits = Critter.getInstances(parsedString[1]);
+        			Critter.runStats(listOfCrits);
+        			
+        			
+        		}
+        		catch( InvalidCritterException e){
+        			System.out.println("error processing: " + input);
+        		}
+        		
+        	}
+        	
+        	//if the command entered is not in the library of commands
+        	else {
+        		System.out.println("invalid command: " + input);
+        	
         	}
         	
         	
             System.out.print("critters>");
             input = kb.nextLine();
         }
+        
+        
+        
+        
+        
         
         // System.out.println("GLHF");
         

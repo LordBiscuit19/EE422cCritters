@@ -13,6 +13,7 @@ package assignment4;
  */
 
 
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -144,15 +145,24 @@ public abstract class Critter {
 	
 	
 	protected final void run(int direction) {
+		this.walk(direction);
+		this.walk(direction);
 		
+		this.energy = this.energy - Params.run_energy_cost + (2 * Params.walk_energy_cost);
 	}
 	
 	
 	
 	
 	protected final void reproduce(Critter offspring, int direction) {
-		offspring.energy = this.energy/2;
-		this.energy = this.energy/2;
+		if (this.energy >= Params.min_reproduce_energy) {
+			offspring.energy = this.energy/2;
+			this.energy = this.energy/2;
+			offspring.x_coord = this.x_coord;
+			offspring.y_coord = this.y_coord;
+			offspring.walk(direction);
+			babies.add(offspring);
+		}
 	}
 
 	
@@ -178,6 +188,7 @@ public abstract class Critter {
 		Critter myCritter = (Critter) c.newInstance();
 		randPosition(myCritter);
 		population.add(myCritter);
+		myCritter.energy = Params.start_energy;
 		}
 		catch (Exception e){
 			throw new InvalidCritterException(critter_class_name);
@@ -288,23 +299,122 @@ public abstract class Critter {
 	 */
 	public static void clearWorld() {
 		// Complete this method.
+		population.clear();
+		babies.clear();
 	}
 	
 	public static void worldTimeStep() {
+		
+		//do time step for all critters
 		for (Critter crit : population) {
 			crit.doTimeStep();
 		}
+		
+		
+		
+		//fight logic
 		for (Critter crit : population) {
-			if (crit.energy <= 0) {
-				population.remove(crit);
+			List<Critter> fightList = checkOverlap(crit);
+			while (fightList.size() > 1) {
+				Critter A = fightList.get(0);
+				Critter B = fightList.get(1);
+				boolean A_fightResponse = A.fight(B.toString());
+				boolean B_fightResponse = B.fight(A.toString());
+				if (compareLocation(A, B) && 
+						(A.energy > 0) && (B.energy > 0)) {
+					int A_fightRoll = 0;
+					int B_fightRoll = 0;
+					if (A_fightResponse) {
+						A_fightRoll = getRandomInt(A.energy);
+					}
+					if (B_fightResponse) {
+						B_fightRoll = getRandomInt(B.energy);
+					}
+					if (B_fightRoll > A_fightRoll) {
+						B.energy = B.energy + A.energy/2;
+						A.energy = 0;
+						fightList.remove(A);
+					}
+					else {
+						A.energy = A.energy + B.energy/2;
+						B.energy = 0;
+						fightList.remove(B);
+					}
+				}
+				
+				else {
+					if(!compareLocation(A,B)) {
+						fightList.remove(B);
+					}
+					if(A.energy <= 0) {
+						fightList.remove(A);
+					}
+					if(B.energy <= 0) {
+						fightList.remove(B);
+					}
+					
+				}
+				
+				
+			}
+			
+			
+			
+		}
+		
+		
+		
+		
+		//update rest energy
+		for (Critter crit : population) {
+			crit.energy = crit.energy - Params.rest_energy_cost;
+		}
+		
+		
+		//add algae to world
+		for (int i = 0; i < Params.refresh_algae_count; i++) {
+			try {
+				makeCritter("Algae");
+			}
+			catch (InvalidCritterException e) {
+				System.out.println("For some reason algae didn't get refreshed");
 			}
 		}
+		
+		
+		// add the babies
+		for(Critter baby : babies) {
+			population.add(baby);
+		}
+		
+		babies.clear();
+		
+		//cull dead critters
+		for(int i = 0; i < population.size();) {
+		       if (population.get(i).energy <= 0) {
+		    	   population.remove(i);
+		       }
+		       else {
+		    	   i++;
+		       }
+		 }
 	}
+	
+	
+	
+	
+	
+	
 	
 	public static void displayWorld() {
 		char[][] display = new char[Params.world_height][Params.world_width];
 		for (Critter crit : population) {
+			
 			display[crit.y_coord][crit.x_coord] = crit.toString().charAt(0);
+			List<Critter> overLapped=checkOverlap(crit);
+			if(overLapped.size() > 1) {
+				display[crit.y_coord][crit.x_coord] = Integer.toString(overLapped.size()).charAt(0);
+			}
 		}
 		
 		
@@ -337,10 +447,45 @@ public abstract class Critter {
 	
 	
 	
+	
+	
 	private static void randPosition(Critter crit) {
 		int x = getRandomInt(Params.world_width);
 		int y = getRandomInt(Params.world_height);
 		crit.x_coord = x;
 		crit.y_coord = y;
 	}
+	
+	
+	
+	
+	
+	//makes a list of critters in the same space including crit1
+	private static List<Critter> checkOverlap(Critter crit1) {
+		List<Critter> overlapping = new java.util.ArrayList<Critter>();
+		overlapping.add(crit1);
+		for (Critter crit2 : population) {
+			if (compareLocation(crit1, crit2)) {
+				overlapping.add(crit2);
+			}
+		}
+		
+		return overlapping;
+		
+	}
+	
+	
+	
+	//compares two critters to see if the are in the same location. does not compare critters if they are the same object
+	private static boolean compareLocation(Critter crit1, Critter crit2) {
+		if (!(crit1 == crit2)) {
+			if (crit1.x_coord == crit2.x_coord && crit1.y_coord == crit2.y_coord) {
+				return true;
+			}
+		}
+		
+		return false;
+		
+	}
+	
 }

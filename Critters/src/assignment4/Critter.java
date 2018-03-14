@@ -111,7 +111,7 @@ public abstract class Critter {
 					if(x_coord < 0) {
 						x_coord = Params.world_width - 1;
 					}
-					if(y_coord < Params.world_height-1) {
+					if(y_coord > Params.world_height-1) {
 						y_coord = 0;
 					}
 					break;

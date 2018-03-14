@@ -181,10 +181,8 @@ public class Main {
         	//stats command
         	else if(parsedString[0].equals("stats") && parsedString.length == 2) {
         		try{
-        			List<Critter> listOfCrits = Critter.getInstances(parsedString[1]);
-        			Critter.runStats(listOfCrits);
-        			
-        			
+    				List<Critter> listOfCrits = Critter.getInstances(parsedString[1]);
+    				Critter.runStats(listOfCrits);
         		}
         		catch( InvalidCritterException e){
         			System.out.println("error processing: " + input);

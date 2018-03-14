@@ -239,6 +239,7 @@ public abstract class Critter {
 			System.out.print(prefix + s + ":" + critter_count.get(s));
 			prefix = ", ";
 		}
+				
 		System.out.println();		
 	}
 	
@@ -292,6 +293,8 @@ public abstract class Critter {
 		protected static List<Critter> getBabies() {
 			return babies;
 		}
+		
+		
 	}
 
 	/**

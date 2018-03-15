@@ -18,17 +18,16 @@ public class Yoshi extends TestCritter{
 	@Override 
 	 //will move only diagonally 
 	public void doTimeStep() {
-		//less than 100 energy Yoshi gets 4 times his energy 
+		//less than 50 energy Yoshi gets 2 times his energy 
 		if(getEnergy() < 50) {
 			setEnergy(2*getEnergy());
 		}
-		
+	//will only reproduce if energy is greater than 100 and will either produce 2 pups or 4 pups	
 		if (getEnergy() >= 100 && getEnergy() < 400 ) {
 			Yoshi pup1 = new Yoshi();
 			Yoshi pup2 = new Yoshi();
 			
 			reproduce(pup1,getRandomInt(Params.number_of_directions ));
-			
 			reproduce(pup2, getRandomInt(Params.number_of_directions));
 		}
 		if (getEnergy() >=400) {
@@ -37,7 +36,6 @@ public class Yoshi extends TestCritter{
 			Yoshi pup4 = new Yoshi();
 		
 			reproduce (pup3, getRandomInt(Params.number_of_directions));
-		
 			reproduce (pup4, getRandomInt(Params.number_of_directions));
 
 		}

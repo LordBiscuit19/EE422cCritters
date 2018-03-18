@@ -15,6 +15,8 @@ package assignment4;
 import java.util.List;
 import java.util.Scanner;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 
 /*
@@ -181,12 +183,37 @@ public class Main {
         	//stats command
         	else if(parsedString[0].equals("stats") && parsedString.length == 2) {
         		try{
+        			
     				List<Critter> listOfCrits = Critter.getInstances(parsedString[1]);
-    				Critter.runStats(listOfCrits);
+    				String critter_class_name;
+    				
+    				critter_class_name = "assignment4." + parsedString[1];
+    				Class<?> c = Class.forName(critter_class_name);
+    				Method method = c.getMethod("runStats", List.class  );
+    				method.invoke(c, listOfCrits);
+    				
+    			
         		}
-        		catch( InvalidCritterException e){
+        		catch( InvalidCritterException e)
+        		{
         			System.out.println("error processing: " + input);
         		}
+        		catch (NoSuchMethodException e) {
+        			System.out.println("error no stat method" +input);
+        		}
+        		catch (ClassNotFoundException e) {
+        			System.out.println("error no critter found" + input);
+        		}
+        		catch (InvocationTargetException e) {
+        			
+        		} 
+        		catch (IllegalAccessException e) {
+					System.out.println("error Illegal access");
+				} 
+        		catch (IllegalArgumentException e) {
+					System.out.println("error bad command ");
+				}
+       
         		
         	}
         	

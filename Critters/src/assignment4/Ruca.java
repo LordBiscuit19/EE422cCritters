@@ -2,6 +2,8 @@ package assignment4;
 
 import java.util.List;
 import assignment4.Critter.TestCritter;
+import java.lang.reflect.Method;
+
 public class Ruca extends TestCritter {
 
 	@Override

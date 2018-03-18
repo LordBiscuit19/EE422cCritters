@@ -1,6 +1,6 @@
 package assignment4;
 
-
+import java.lang.reflect.Method;
 /*
  * Example critter
  * Do not change or submit this file.

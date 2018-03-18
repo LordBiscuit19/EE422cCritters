@@ -199,19 +199,19 @@ public class Main {
         			System.out.println("error processing: " + input);
         		}
         		catch (NoSuchMethodException e) {
-        			System.out.println("error no stat method" +input);
+        			System.out.println("error processing: " + input);
         		}
         		catch (ClassNotFoundException e) {
-        			System.out.println("error no critter found" + input);
+        			System.out.println("error processing: " + input);
         		}
         		catch (InvocationTargetException e) {
-        			
+        			System.out.println("error processing: " + input);
         		} 
         		catch (IllegalAccessException e) {
-					System.out.println("error Illegal access");
+					System.out.println("error processing: " + input);
 				} 
         		catch (IllegalArgumentException e) {
-					System.out.println("error bad command ");
+					System.out.println("error processing: " + input);
 				}
        
         		

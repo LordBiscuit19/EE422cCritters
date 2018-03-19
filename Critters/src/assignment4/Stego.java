@@ -31,9 +31,9 @@ public class Stego extends TestCritter {
 			
 			
 			List<Critter> closeAlgae = getInstances("Algae");
-			//we find all Algae within a radius of 4 of the Stego
+			//we find all Algae within a radius of 49 of the Stego
 			for (int i = 0; i < closeAlgae.size(); i++) {
-				if (compareDistance(this, closeAlgae.get(i)) > 5) {
+				if (compareDistance(this, closeAlgae.get(i)) > 50) {
 					closeAlgae.remove(i);
 					i--;
 				}

@@ -53,7 +53,14 @@ public abstract class Critter {
 	private int x_coord;
 	private int y_coord;
 	
-	
+	/**
+	 * This is the walk function implements the movement of the critter in the world. It will take a 
+	 * integer ranging from 0 to 7  i.	0 will be East, 1 will be Northeast, 2 will be North,
+	 *  3 will be Northwest, 4 will be West, 5 will be Southwest, 6 will be South, and 7 will be Southeast.
+	 *  This function will deduct the appropriate walk energy from the critter's energy level. The walk energy
+	 *  cost is determined in the params class of constants 
+	 * @param direction- will take a integer to determine the direction of the movement on a x-y plane 
+	 */
 	
 	
 	protected final void walk(int direction) {
@@ -143,7 +150,16 @@ public abstract class Critter {
 	}
 	
 	
-	
+	/**
+	 * This method will implement the run movement on the critter. The run movement is two spaces 
+	 * rather than the one space in the walk function.
+	 * It will take an integer from 0 to 7 to determine the direction it will move by an increment of 2
+	 * i.	0 will be East, 1 will be Northeast, 2 will be North, 3 will be Northwest, 4 will be West, 
+	 * 5 will be Southwest, 6 will be South, and 7 will be Southeast
+	 * This method will also subtract the appropriate amount of energy to for a run movement. The energy cost 
+	 * will be determined by the params class of constants 
+	 * @param direction takes an integer ranging from 0 to 7 to move in the corresponding direction 
+	 */
 	
 	protected final void run(int direction) {
 		this.walk(direction);
@@ -152,7 +168,16 @@ public abstract class Critter {
 		this.energy = this.energy - Params.run_energy_cost + (2 * Params.walk_energy_cost);
 	}
 	
-	
+	/**
+	 * This method is the reproduction function, it will construct a critter and set the location adjacent to the parent
+	 * critter 
+	 * It will also set the energy level the baby to half of the energy value of the parent
+	 * The baby will be also added to the list of the babies to be accumulated during the world time step 
+	 * The parent will also lose half of its energy 
+	 * @param offspring - will the the critter type and new object passed in doTimeStep of each critter 
+	 * @param direction - will be the direction integer ranging from 0 to 7 that will be adjacent to the parent critter 
+	 *
+	 */
 	
 	
 	protected final void reproduce(Critter offspring, int direction) {
@@ -168,8 +193,18 @@ public abstract class Critter {
 
 	
 	
-	
+	/**
+	 * Each critter will invoke this method specific to that type of critter during the worldTimeStep 
+	 */
 	public abstract void doTimeStep();
+	
+	/**
+	 * This method returns the fight decision when return true the critter will decide to fight, if return false 
+	 * the critter is declining to fight. This occurs when there are more than one critter occupying the same space at a given
+	 * time step invocation.  
+	 * @param oponent - is the string representation of the critter's fight opponent 
+	 * @return True to fight, false to decline fight 
+	 */
 	public abstract boolean fight(String oponent);
 	
 	/**
@@ -179,8 +214,8 @@ public abstract class Critter {
 	 * (Java weirdness: Exception throwing does not work properly if the parameter has lower-case instead of
 	 * upper. For example, if craig is supplied instead of Craig, an error is thrown instead of
 	 * an Exception.)
-	 * @param critter_class_name
-	 * @throws InvalidCritterException
+	 * @param critter_class_name -is the string representation of the type of critter
+	 * @throws InvalidCritterException- if the string representation is not valid an exception will be thrown a
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
 		try {
@@ -199,8 +234,9 @@ public abstract class Critter {
 	/**
 	 * Gets a list of critters of a specific type.
 	 * @param critter_class_name What kind of Critter is to be listed.  Unqualified class name.
-	 * @return List of Critters.
-	 * @throws InvalidCritterException
+	 * @return List of Critters- Is the the list of critters that are of a certain type. For example, 
+	 * if Craig is passed the a list of all active Craig object types will be returned 
+	 * @throws InvalidCritterException -if the string representation is not valid an exception will be thrown
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
@@ -221,7 +257,10 @@ public abstract class Critter {
 	
 	/**
 	 * Prints out how many Critters of each type there are on the board.
-	 * @param critters List of Critters.
+	 * This is the default runStats for all critters if a critter type has its own runStats
+	 * function it will be called instead 
+	 * @param critters List of Critters.- must pass a list of critters 
+	 * it will output on the console the number of each critter type on the board 
 	 */
 	public static void runStats(List<Critter> critters) {
 		System.out.print("" + critters.size() + " critters as follows -- ");
@@ -306,7 +345,16 @@ public abstract class Critter {
 		population.clear();
 		babies.clear();
 	}
-	
+	/**
+	 * This method invokes the do time step function for every active critter on the board
+	 * it also contains the fight logic. The fight logic determines the winner between two critters 
+	 * Occupying the same space if they choose to fight, each critter will randomly generate a number between
+	 * 0 and their energy lever. The critter with the larger number will win. In the case critter does not choose
+	 * to fight, it will automatically roll a zero. 
+	 * This method will also account for rest energy, baby list update, addition of algae and remove dead 
+	 * critters at the end   
+	 * 
+	 */
 	public static void worldTimeStep() {
 		
 		//do time step for all critters
@@ -409,7 +457,14 @@ public abstract class Critter {
 	
 	
 	
-	
+	/**
+	 * Will provide a visual representation of the critter world with each of the critters
+	 * represented by their a character based on their type 
+	 * example: craig will be represented as C, algae will be represented as A
+	 * there is a boarder around the world. 
+	 * When critters overlap the space occupied will contain an integer representing the number 
+	 * of critters on the space 
+	 */
 	public static void displayWorld() {
 		char[][] display = new char[Params.world_height][Params.world_width];
 		for (Critter crit : population) {
@@ -461,7 +516,13 @@ public abstract class Critter {
 	}
 	
 	
-	
+	/**
+	 * This method is to assist in checking spots for multiple critters 
+	 * @param crit1 is the critter whose location that we are comparing the rest 
+	 * of the population's location for every critter with the same location will be added to the list 
+	 * the list will include the passed critter as well
+	 * @return - a list of critters occupying the same spot as the passed critter.
+	 */
 	
 	
 	//makes a list of critters in the same space including crit1
@@ -478,7 +539,13 @@ public abstract class Critter {
 		
 	}
 	
-	
+	/**
+	 * this method compares the location of two critters 
+	 * @param crit1 is a critter 
+	 * @param crit2 is a critter 
+	 * @return true if the two critters passed into the the method
+	 *  are occupying the same location and false otherwise
+	 */
 	
 	//compares two critters to see if the are in the same location. does not compare critters if they are the same object
 	private static boolean compareLocation(Critter crit1, Critter crit2) {

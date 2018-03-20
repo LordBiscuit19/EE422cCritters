@@ -11,20 +11,23 @@ public class Ruca extends TestCritter {
 	public String toString() {return "R";}
 	
 	private int dir;
-	
+	/**
+	 * fight determination 
+	 */
 	public boolean fight(String not_used) {
 		
 		return true;
 	}
-	
+	/**
+	 *  Find out the current highest energy level in the population 
+	 * then set Ruca to that energy *2 leaving out all the other Rucas
+	 * this is to give it a statistical advantage to roll a higher 
+	 * number than opponents. Expecting all the Rucas to have the same Energy
+	 * except new babies
+	 */
 	@Override
 	public void doTimeStep() {
-		/* Find out the current highest energy level in the population 
-		 * then set Ruca to that energy *2 leaving out all the other Rucas
-		 * this is to give it a statistical advantage to roll a higher 
-		 * number than opponents. Expecting all the Rucas to have the same Energy
-		 * except new babies
-		 */
+		
 		List <Critter> checkList = getPopulation();
 		int highestEnergy=0;
 		
@@ -49,6 +52,10 @@ public class Ruca extends TestCritter {
 		
 		
 	}
+	/**
+	 * Counts how many rucas are on the on board 
+	 * @param rucaList- a list of all instance of Rucas 
+	 */
 	
 	public static void runStats(List<Critter> rucaList) {
 		System.out.println("There are currently: " + rucaList.size() + "Rucas' represented by 'R'");

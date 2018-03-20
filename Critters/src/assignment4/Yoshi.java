@@ -14,9 +14,15 @@ public class Yoshi extends TestCritter{
 	public boolean fight(String nope) {
 		return true;
 	}
-	
-	@Override 
-	 //will move only diagonally 
+	/**
+	 * Yoshi critter is a cheater, Yoshi will reproduce when his energy lever is greater than 100.
+	 * If his energy level is at 100 he will make two babies. 
+	 * If his energy level exceeds 400 he will make 4 babies.
+	 * At the beginning of the turn if Yoshi's health level is less than 50 he will get two times his 
+	 * current energy
+	 * Yoshi will only move in a diagonal direction
+	 */
+	@Override  
 	public void doTimeStep() {
 		//less than 50 energy Yoshi gets 2 times his energy 
 		if(getEnergy() < 50) {
@@ -46,6 +52,10 @@ public class Yoshi extends TestCritter{
 		walk(dir);
 		
 	}
+	/**
+	 * Will output  the current number of active Yoshi's on the board 
+	 * @param yoshiList- a list of all active instances of Yoshi 
+	 */
 	public static void runStats(List<Critter> yoshiList) {
 		System.out.println("There are currently: "+ yoshiList.size() + " Yoshis' represented by 'Y'");
 	}

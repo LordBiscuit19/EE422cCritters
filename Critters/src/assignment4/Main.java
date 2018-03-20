@@ -241,7 +241,11 @@ public class Main {
     }
     
     
-    
+    /**
+     * helper function
+     * @param str if the string is an int 
+     * @return true if the string is an in ranging from 0 to 9 
+     */
     public static boolean stringIsInt(String str) {
     	for (int i = 0 ; i < str.length(); i++) {
     		if(str.charAt(i) < '0' || str.charAt(i) > '9') {

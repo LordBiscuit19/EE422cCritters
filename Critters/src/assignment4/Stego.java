@@ -28,10 +28,13 @@ public class Stego extends TestCritter {
 	public boolean fight(String not_used) { return true; }
 
 	@Override
-	//the Stego will look for algea near it and move toward them
+	/**
+	 * the Stego will look for algea near it and move toward them
+	 * It will reproduce if it gets more than 200 energy
+	 */
 	public void doTimeStep() {
 		
-		//if the Stego has more than 50 energy it will reproduce
+		//if the Stego has more than 200 energy it will reproduce
 		if(getEnergy() > 200) {
 			Stego child = new Stego();
 			reproduce(child, getRandomInt(number_of_directions));
@@ -92,14 +95,24 @@ public class Stego extends TestCritter {
 	}
 	
 	
-	//calculates the distance between a Stego Critter and an Algae Critter
+	/**
+	 * calculates the distance between a Stego Critter and an Algae Critter
+	 * @param stego, the Stego critter to calculate the distace for
+	 * @param crit, the other critter to find the distance to
+	 * @return the integer representation of the distance from stego to crit
+	 */
 	private int compareDistance(Stego stego, Critter crit) {
 		//the getX_coord functions do not work on critters, so we must type cast the critters to Algae
 		Algae algae = (Algae) crit;
 		return ( (int) Math.sqrt((Math.pow(stego.getX_coord() - algae.getX_coord(), 2) + Math.pow(stego.getY_coord() - algae.getY_coord(), 2))) );
 	}
 	
-	
+	/**
+	 * Move the stego toward the algae critter
+	 * @param stego, the Stego critter to move
+	 * @param algae, the Algae critter to move toward
+	 * @return the direction the Stego should move to get to the algae
+	 */
 	private int moveTowardAlgae(Stego stego, Algae algae) {
 		//if the x positions are different move toward the Algae in the x direction
 		if (stego.getX_coord() != algae.getX_coord()) {

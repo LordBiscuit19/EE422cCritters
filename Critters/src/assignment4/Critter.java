@@ -62,8 +62,6 @@ public abstract class Critter {
 	 *  cost is determined in the params class of constants 
 	 * @param direction- will take a integer to determine the direction of the movement on a x-y plane 
 	 */
-	
-	
 	protected final void walk(int direction) {
 		switch (direction) {
 			case 0: x_coord = x_coord + 1;
@@ -161,13 +159,14 @@ public abstract class Critter {
 	 * will be determined by the params class of constants 
 	 * @param direction takes an integer ranging from 0 to 7 to move in the corresponding direction 
 	 */
-	
 	protected final void run(int direction) {
 		this.walk(direction);
 		this.walk(direction);
 		
 		this.energy = this.energy - Params.run_energy_cost + (2 * Params.walk_energy_cost);
 	}
+	
+	
 	
 	/**
 	 * This method is the reproduction function, it will construct a critter and set the location adjacent to the parent
@@ -179,8 +178,6 @@ public abstract class Critter {
 	 * @param direction - will be the direction integer ranging from 0 to 7 that will be adjacent to the parent critter 
 	 *
 	 */
-	
-	
 	protected final void reproduce(Critter offspring, int direction) {
 		if (this.energy >= Params.min_reproduce_energy) {
 			offspring.energy = this.energy/2;
@@ -215,8 +212,8 @@ public abstract class Critter {
 	 * (Java weirdness: Exception throwing does not work properly if the parameter has lower-case instead of
 	 * upper. For example, if craig is supplied instead of Craig, an error is thrown instead of
 	 * an Exception.)
-	 * @param critter_class_name -is the string representation of the type of critter
-	 * @throws InvalidCritterException- if the string representation is not valid an exception will be thrown a
+	 * @param critter_class_name, is the string representation of the type of critter
+	 * @throws InvalidCritterException, if the string representation is not valid an exception will be thrown a
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
 		try {

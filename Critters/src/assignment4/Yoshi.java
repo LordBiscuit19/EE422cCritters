@@ -1,5 +1,18 @@
 package assignment4;
 
+/* CRITTERS Yoshi.java
+ * EE422C Project 4 submission by
+ * Replace <...> with your actual data.
+ * Donald Maze-England
+ * dsm2588
+ * 15465
+ * Jennifer Sin
+ * js45246
+ * 15466
+ * Slip days used: <0>
+ * Spring 2018
+ */
+
 import java.util.List;
 
 import assignment4.Critter.TestCritter;
@@ -33,22 +46,22 @@ public class Yoshi extends TestCritter{
 			Yoshi pup1 = new Yoshi();
 			Yoshi pup2 = new Yoshi();
 			
-			reproduce(pup1,getRandomInt(Params.number_of_directions ));
-			reproduce(pup2, getRandomInt(Params.number_of_directions));
+			reproduce(pup1,getRandomInt(number_of_directions ));
+			reproduce(pup2, getRandomInt(number_of_directions));
 		}
 		if (getEnergy() >=400) {
 			
 			Yoshi pup3 = new Yoshi();
 			Yoshi pup4 = new Yoshi();
 		
-			reproduce (pup3, getRandomInt(Params.number_of_directions));
-			reproduce (pup4, getRandomInt(Params.number_of_directions));
+			reproduce (pup3, getRandomInt(number_of_directions));
+			reproduce (pup4, getRandomInt(number_of_directions));
 
 		}
 		
 		
 		//Diagonal movement direction is random
-		dir = (2 * (getRandomInt(Params.number_of_directions))+1)% Params.number_of_directions;
+		dir = (2 * (getRandomInt(number_of_directions))+1)% number_of_directions;
 		walk(dir);
 		
 	}

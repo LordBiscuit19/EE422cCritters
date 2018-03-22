@@ -2,14 +2,14 @@ package assignment4;
 /* CRITTERS Main.java
  * EE422C Project 4 submission by
  * Replace <...> with your actual data.
- * <Student1 Name>
- * <Student1 EID>
- * <Student1 5-digit Unique No.>
- * <Student2 Name>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
+ * Donald Maze-England
+ * dsm2588
+ * 15465
+ * Jennifer Sin
+ * js45246
+ * 15466
  * Slip days used: <0>
- * Fall 2016
+ * Fall Spring 2018
  */
 
 import java.util.List;
@@ -79,7 +79,7 @@ public class Main {
         
         
         
-        
+        //main while loops that runs until the quit command is entered
         while (!input.equals("quit")) {
         	String[] parsedString = input.split("\\s+");
         	
@@ -90,7 +90,7 @@ public class Main {
             		Critter.displayWorld();
         		}
         		else {
-        			System.out.println("invalid command: " + input);
+        			System.out.println("error processing: " + input);
         		}
         	}
         	
@@ -105,7 +105,7 @@ public class Main {
 		        		}
 		        		
 		        		else {
-		        			System.out.println("invalid command: " + input);
+		        			System.out.println("error processing: " + input);
 		        		}
 		        		
 	        		}
@@ -116,7 +116,7 @@ public class Main {
         		}
         		
         		else {
-        			System.out.println("invalid command: " + input);
+        			System.out.println("error processing: " + input);
         		}
         		
         	}
@@ -130,11 +130,11 @@ public class Main {
 	        			Critter.setSeed(Integer.parseInt(parsedString[1]));
 	        		}
 	        		else {
-	        			System.out.println("invalid command: " + input);
+	        			System.out.println("error processing: " + input);
 	        		}
         		}
         		else {
-        			System.out.println("invalid command: " + input);
+        			System.out.println("error processing: " + input);
         		}
         	}
         	
@@ -169,12 +169,15 @@ public class Main {
                     			System.out.println("error processing: " + input);
             				}
         				}
+        				else {
+                			System.out.println("error processing: " + input);
+                		}
         			}
         			
         		}
         		
         		else {
-        			System.out.println("invalid command: " + input);
+        			System.out.println("error processing: " + input);
         		}
         	}
         	

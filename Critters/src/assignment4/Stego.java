@@ -1,5 +1,18 @@
 package assignment4;
 
+/* CRITTERS Stego.java
+ * EE422C Project 4 submission by
+ * Replace <...> with your actual data.
+ * Donald Maze-England
+ * dsm2588
+ * 15465
+ * Jennifer Sin
+ * js45246
+ * 15466
+ * Slip days used: <0>
+ * Spring 2018
+ */
+
 import java.util.List;
 
 import assignment4.Critter.TestCritter;
@@ -21,12 +34,12 @@ public class Stego extends TestCritter {
 		//if the Stego has more than 50 energy it will reproduce
 		if(getEnergy() > 200) {
 			Stego child = new Stego();
-			reproduce(child, getRandomInt(Params.number_of_directions));
+			reproduce(child, getRandomInt(number_of_directions));
 		}
 		
 		
 		//movement algorithm for Stego
-		dir = getRandomInt(Params.number_of_directions);
+		dir = getRandomInt(number_of_directions);
 		try {
 			
 			
@@ -74,8 +87,7 @@ public class Stego extends TestCritter {
 
 	
 	public static void runStats(List<Critter> stegos) {
-		System.out.println("" + stegos.size() + " critters as follows -- S:" + stegos.size());
-		System.out.println("test");
+		System.out.println("There are currently " + stegos.size() + " stegos represented as follows -- S:");
 		
 	}
 	

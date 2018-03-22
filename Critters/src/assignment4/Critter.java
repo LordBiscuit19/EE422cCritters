@@ -2,14 +2,14 @@ package assignment4;
 /* CRITTERS Critter.java
  * EE422C Project 4 submission by
  * Replace <...> with your actual data.
- * <Student1 Name>
- * <Student1 EID>
- * <Student1 5-digit Unique No.>
- * <Student2 Name>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
+ * Donald Maze-England
+ * dsm2588
+ * 15465
+ * Jennifer Sin
+ * js45246
+ * 15466
  * Slip days used: <0>
- * Fall 2016
+ * Fall Spring 2018
  */
 
 
@@ -25,6 +25,7 @@ import java.lang.reflect.Method;
 
 
 public abstract class Critter {
+	public static int number_of_directions = 8;
 	private static String myPackage;
 	private	static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
@@ -219,7 +220,7 @@ public abstract class Critter {
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
 		try {
-		critter_class_name = "assignment4." + critter_class_name;
+		critter_class_name = myPackage +"." + critter_class_name;
 		Class<?> c = Class.forName(critter_class_name);
 		Critter myCritter = (Critter) c.newInstance();
 		randPosition(myCritter);
@@ -240,7 +241,7 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
-		critter_class_name = "assignment4." + critter_class_name;
+		critter_class_name = myPackage + "." + critter_class_name;
 		try {				
 			for (Critter crit : population) {
 				if (Class.forName(critter_class_name).isInstance(crit)) {
@@ -467,6 +468,12 @@ public abstract class Critter {
 	 */
 	public static void displayWorld() {
 		char[][] display = new char[Params.world_height][Params.world_width];
+		for(int i = 0; i < Params.world_height; i++) {
+			for (int j = 0; j < Params.world_width; j++) {
+				display[i][j] = ' ';
+			}
+		}
+		
 		for (Critter crit : population) {
 			
 			display[crit.y_coord][crit.x_coord] = crit.toString().charAt(0);
@@ -507,7 +514,10 @@ public abstract class Critter {
 	
 	
 	
-	
+	/**
+	 * This method randomly sets a critters position in the world
+	 * @param crit the critter to set the position of
+	 */
 	private static void randPosition(Critter crit) {
 		int x = getRandomInt(Params.world_width);
 		int y = getRandomInt(Params.world_height);

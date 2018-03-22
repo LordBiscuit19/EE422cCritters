@@ -1,5 +1,18 @@
 package assignment4;
 
+/* CRITTERS Ruca.java
+ * EE422C Project 4 submission by
+ * Replace <...> with your actual data.
+ * Donald Maze-England
+ * dsm2588
+ * 15465
+ * Jennifer Sin
+ * js45246
+ * 15466
+ * Slip days used: <0>
+ * Spring 2018
+ */
+
 import java.util.List;
 import assignment4.Critter.TestCritter;
 import java.lang.reflect.Method;
@@ -44,10 +57,10 @@ public class Ruca extends TestCritter {
 		
 		if (getRandomInt(Params.start_energy)%2 == 0) {
 			Ruca kitten = new Ruca();
-			reproduce (kitten, getRandomInt(Params.number_of_directions));
+			reproduce (kitten, getRandomInt(number_of_directions));
 		}
 		
-		dir = getRandomInt(Params.number_of_directions);
+		dir = getRandomInt(number_of_directions);
 		walk(dir);
 		
 		
@@ -58,7 +71,7 @@ public class Ruca extends TestCritter {
 	 */
 	
 	public static void runStats(List<Critter> rucaList) {
-		System.out.println("There are currently: " + rucaList.size() + "Rucas' represented by 'R'");
+		System.out.println("There are currently: " + rucaList.size() + " Rucas' represented by 'R'");
 		
 	}
 }

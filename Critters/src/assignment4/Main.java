@@ -18,7 +18,17 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import javafx.application.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
+import javafx.event.ActionEvent;
 
 
 
@@ -45,7 +55,148 @@ public class Main extends Application {
 
     public void start(Stage stage) {
     	view = new View(stage);
-System.out.print("critters>");
+    	
+    	
+    	Button showBtn = new Button("show");
+    	showBtn.setOnAction(new EventHandler<ActionEvent>() {
+    		@Override
+    		public void handle(ActionEvent e) {
+    			view.show();
+    		}
+    	});
+    	
+    	
+    	Button seedBtn = new Button("seed");
+    	seedBtn.setOnAction(new EventHandler<ActionEvent>() {
+    		@Override
+    		public void handle(ActionEvent e) {
+    			Stage seedStage = new Stage();
+    			FlowPane seedPane = new FlowPane();
+    			Scene seedScene = new Scene(seedPane, 50,200);
+    			TextField seedTextField = new TextField("seed:");
+    			seedPane.getChildren().add(seedTextField);
+    			
+    			seedStage.setScene(seedScene);
+    			seedStage.show();
+    			
+    			seedTextField.setOnAction(new EventHandler<ActionEvent>() {
+    				@Override
+    				public void handle(ActionEvent e) {
+    					int seedNum = Integer.parseInt( seedTextField.getText() );
+    					System.out.println(seedNum);
+    	    			Critter.setSeed(seedNum);
+    				}
+    			});
+    			
+    		}
+    	});
+    	
+    	
+    	Button quitBtn = new Button("quit");
+    	quitBtn.setOnAction(new EventHandler<ActionEvent>() {
+    		@Override
+    		public void handle(ActionEvent e) {
+    			System.exit(0);
+    		}
+    	});
+    	
+    	
+    	ObservableList<String> options = FXCollections.observableArrayList(
+				"Craig",
+				"Algae",
+				"Stego",
+				"Yoshi",
+				"SuperAlgae",
+				"Ruca"
+			);
+    	ComboBox<String> statsBtn = new ComboBox<String>(options);
+    	statsBtn.setPromptText("stats");
+    	statsBtn.setOnAction(new EventHandler<ActionEvent>() {
+    		@Override
+    		public void handle (ActionEvent e) {
+    			String critter = statsBtn.getValue();
+    			try{
+        			
+    				List<Critter> listOfCrits = Critter.getInstances(critter);
+    				String critter_class_name;
+    				
+    				critter_class_name = "assignment4." + critter;
+    				Class<?> c = Class.forName(critter_class_name);
+    				Method method = c.getMethod("runStats", List.class  );
+    				method.invoke(c, listOfCrits);
+    				
+    			
+        		}
+        		catch( InvalidCritterException e2)
+        		{
+        			System.out.println("error processing: " + critter);
+        		}
+        		catch (NoSuchMethodException e2) {
+        			System.out.println("error processing: " + critter);
+        		}
+        		catch (ClassNotFoundException e2) {
+        			System.out.println("error processing: " + critter);
+        		}
+        		catch (InvocationTargetException e2) {
+        			System.out.println("error processing: " + critter);
+        		} 
+        		catch (IllegalAccessException e2) {
+					System.out.println("error processing: " + critter);
+				} 
+        		catch (IllegalArgumentException e2) {
+					System.out.println("error processing: " + critter);
+				}
+    		}	
+    	});
+    	
+    	
+    	view.addButton(showBtn);
+    	view.addButton(quitBtn);
+    	view.addButton(seedBtn);
+    	view.addComboBox(statsBtn);
+    	view.show();
+    }
+    
+    
+    /**
+     * Main method.
+     * @param args args can be empty.  If not empty, provide two parameters -- the first is a file name, 
+     * and the second is test (for test output, where all output to be directed to a String), or nothing.
+     */
+    public static void main(String[] args) { 
+        if (args.length != 0) {
+            try {
+                inputFile = args[0];
+                kb = new Scanner(new File(inputFile));			
+            } catch (FileNotFoundException e) {
+                System.out.println("USAGE: java Main OR java Main <input file> <test output>");
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                System.out.println("USAGE: java Main OR java Main <input file>  <test output>");
+            }
+            if (args.length >= 2) {
+                if (args[1].equals("test")) { // if the word "test" is the second argument to java
+                    // Create a stream to hold the output
+                    testOutputString = new ByteArrayOutputStream();
+                    PrintStream ps = new PrintStream(testOutputString);
+                    // Save the old System.out.
+                    old = System.out;
+                    // Tell Java to use the special stream; all console output will be redirected here from now
+                    System.setOut(ps);
+                }
+            }
+        } else { // if no arguments to main
+            kb = new Scanner(System.in); // use keyboard and console
+        }
+
+        /* Do not alter the code above for your submission. */
+        /* Write your code below. */
+        
+    	Application.launch(args);
+    	
+    	
+    	/*
+    	System.out.print("critters>");
         
         String input = kb.nextLine();
         
@@ -211,46 +362,9 @@ System.out.print("critters>");
         // System.out.println("GLHF");
         
         /* Write your code above */
-        System.out.flush();
-    }
-    
-    
-    /**
-     * Main method.
-     * @param args args can be empty.  If not empty, provide two parameters -- the first is a file name, 
-     * and the second is test (for test output, where all output to be directed to a String), or nothing.
-     */
-    public static void main(String[] args) { 
-        if (args.length != 0) {
-            try {
-                inputFile = args[0];
-                kb = new Scanner(new File(inputFile));			
-            } catch (FileNotFoundException e) {
-                System.out.println("USAGE: java Main OR java Main <input file> <test output>");
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                System.out.println("USAGE: java Main OR java Main <input file>  <test output>");
-            }
-            if (args.length >= 2) {
-                if (args[1].equals("test")) { // if the word "test" is the second argument to java
-                    // Create a stream to hold the output
-                    testOutputString = new ByteArrayOutputStream();
-                    PrintStream ps = new PrintStream(testOutputString);
-                    // Save the old System.out.
-                    old = System.out;
-                    // Tell Java to use the special stream; all console output will be redirected here from now
-                    System.setOut(ps);
-                }
-            }
-        } else { // if no arguments to main
-            kb = new Scanner(System.in); // use keyboard and console
-        }
+        //System.out.flush();
 
-        /* Do not alter the code above for your submission. */
-        /* Write your code below. */
         
-    	Application.launch(args);
-
     }
     
     

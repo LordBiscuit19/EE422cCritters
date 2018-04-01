@@ -29,6 +29,7 @@ public abstract class Critter {
 	private static String myPackage;
 	private	static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
+	static View view;
 
 	// Gets the package name.  This assumes that Critter and its subclasses are all in the same package.
 	static {
@@ -39,6 +40,12 @@ public abstract class Critter {
 	public static int getRandomInt(int max) {
 		return rand.nextInt(max);
 	}
+	
+	
+	public static void passView(View viewPass) {
+		view = viewPass;
+	}
+	
 	
 	public static void setSeed(long new_seed) {
 		rand = new java.util.Random(new_seed);
@@ -506,6 +513,7 @@ public abstract class Critter {
 		}
 		System.out.println("+");
 		
+		view.show(population);
 	}
 	
 	
@@ -564,6 +572,16 @@ public abstract class Critter {
 		
 		return false;
 		
+	}
+	/**
+	 * 
+	 * @param direction
+	 * @param steps
+	 * @return
+	 */
+	protected static String look(int direction, boolean steps) {
+		
+		return "null";
 	}
 	
 }

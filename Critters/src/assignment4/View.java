@@ -1,11 +1,15 @@
 package assignment4;
 
+import java.util.List;
+
 import javafx.application.*;
 import javafx.event.*;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
@@ -20,22 +24,26 @@ public class View{
 	FlowPane controlPane;
 	Scene scene;
 	Scene controlScene;
-	static int num_rows = 20;
-	static int num_cols = 20;
-	static int size = 600 / num_rows;
+	
+	Canvas critterCanvas;
+	
+	static int spriteScaler=10;
+	static int num_rows = Params.world_width;
+	static int num_cols = Params.world_height;
+	static int size = 10;
+	
 	
 	public View(Stage stage) {
 		primaryStage = stage;
 		controlStage = new Stage();
 		controlPane = new FlowPane();
 		gridPane = new GridPane();
-		scene = new Scene(gridPane, 600, 600);
+		scene = new Scene(gridPane, num_rows*spriteScaler, num_cols*spriteScaler);
 		controlScene = new Scene(controlPane, 300, 300);
 		primaryStage.setTitle("critters");
 		primaryStage.setScene(scene);
 		controlStage.setTitle("controls");
-		controlStage.setScene(controlScene);
-		paintGridLines(gridPane);
+		controlStage.setScene(controlScene);		
 	}
 	
 	
@@ -48,6 +56,8 @@ public class View{
 				grid.add(s, c, r);
 			}
 		}
+		Shape t = new Circle (5);
+		grid.add(t,10, 10);
 	}
 	
 	
@@ -60,9 +70,16 @@ public class View{
 	}
 	
 	
-	public void show() {
+	public void show(List<Critter> listOfCrits) {
+		gridPane.getChildren().clear();
+		paintGridLines(gridPane);
+		paintCritters(listOfCrits);
 		primaryStage.show();
 		controlStage.show();
+	}
+	
+	private void paintCritters(List<Critter> listOfCrits) {
+		
 	}
 	
 	

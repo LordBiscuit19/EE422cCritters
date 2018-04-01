@@ -56,6 +56,8 @@ public class Main extends Application {
     public void start(Stage stage) {
     	view = new View(stage);
     	
+    
+    	
     	
     	Button showBtn = new Button("show");
     	showBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -85,6 +87,7 @@ public class Main extends Application {
     					int seedNum = Integer.parseInt( seedTextField.getText() );
     					System.out.println(seedNum);
     	    			Critter.setSeed(seedNum);
+    	    			seedStage.close();
     				}
     			});
     			
@@ -115,6 +118,7 @@ public class Main extends Application {
     		@Override
     		public void handle (ActionEvent e) {
     			String critter = statsBtn.getValue();
+    			
     			try{
         			
     				List<Critter> listOfCrits = Critter.getInstances(critter);
@@ -149,12 +153,53 @@ public class Main extends Application {
     		}	
     	});
     	
+    	ComboBox<String> makeBtn = new ComboBox <String>(options);
+    	makeBtn.setPromptText("make");
+    	makeBtn.setOnAction(new EventHandler<ActionEvent>() {
+    		@Override
+    		public void handle (ActionEvent e) {
+    			String critter = makeBtn.getValue();
+    			System.out.println(critter);
+			
+				Stage makeStage = new Stage ();
+				FlowPane makePane = new FlowPane();
+				Scene makeScene = new Scene (makePane, 50, 200);
+				TextField makeTextField  = new TextField("Number of Critters: ");
+	
+				makePane.getChildren().add(makeTextField);
+				makeStage.setScene(makeScene);
+				makeStage.show();
+				
+				makeTextField.setOnAction(new EventHandler <ActionEvent>(){
+					@Override
+					public void handle (ActionEvent e) {
+						try {
+							int makeNum = Integer.parseInt( makeTextField.getText());
+							System.out.println (makeNum);
+							for(int x=0; x < makeNum; x++) {
+								Critter.makeCritter(critter);	
+							}
+							makeStage.close();
+						}
+						catch (InvalidCritterException e2) {
+							System.out.println("error processing: " + critter);
+							makeStage.close();
+						}
+					}
+					
+				});
+    		}
+    	});
+
+
     	
     	view.addButton(showBtn);
     	view.addButton(quitBtn);
     	view.addButton(seedBtn);
     	view.addComboBox(statsBtn);
-    	view.show();
+    	view.addComboBox(makeBtn);
+    	Critter.passView(view);
+    	Critter.displayWorld();
     }
     
     

@@ -47,5 +47,20 @@ public class SuperAlgae extends TestCritter {
 		System.out.println("There are currently " + superAlgaes.size() + " superAlgaes represented as follows -- A:");
 		
 	}
+
+	@Override
+	public CritterShape viewShape() {
+		
+		return CritterShape.CIRCLE;
+	}
+	@Override
+	public javafx.scene.paint.Color viewFillColor(){
+		return javafx.scene.paint.Color.RED;
+	}
+	
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor(){
+		return javafx.scene.paint.Color.RED;
+	}
 	
 }

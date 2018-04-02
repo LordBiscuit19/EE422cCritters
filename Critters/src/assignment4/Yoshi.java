@@ -72,5 +72,18 @@ public class Yoshi extends TestCritter{
 	public static void runStats(List<Critter> yoshiList) {
 		System.out.println("There are currently: "+ yoshiList.size() + " Yoshis' represented by 'Y'");
 	}
+	@Override
+	public CritterShape viewShape() {
+		return CritterShape.CIRCLE;
+	}
+	@Override
+	public javafx.scene.paint.Color viewFillColor(){
+		return javafx.scene.paint.Color.BLUE;
+	}
+	
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor(){
+		return javafx.scene.paint.Color.BLUE;
+	}
 
 }

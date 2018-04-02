@@ -15,6 +15,7 @@ package assignment4;
 
 import java.util.List;
 
+import assignment4.Critter.CritterShape;
 import assignment4.Critter.TestCritter;
 
 public class Stego extends TestCritter {
@@ -141,6 +142,20 @@ public class Stego extends TestCritter {
 		
 	}
 	
+	@Override
+	public CritterShape viewShape() {
+		
+		return CritterShape.CIRCLE;
+	}
+	@Override
+	public javafx.scene.paint.Color viewFillColor(){
+		return javafx.scene.paint.Color.PURPLE;
+	}
+	
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor(){
+		return javafx.scene.paint.Color.PURPLE;
+	}
 	
 	
 	

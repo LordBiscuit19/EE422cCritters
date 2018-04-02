@@ -63,7 +63,8 @@ public class Main extends Application {
     	showBtn.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
     		public void handle(ActionEvent e) {
-    			view.show();
+    			
+    			Critter.displayWorld();
     		}
     	});
     	
@@ -112,6 +113,8 @@ public class Main extends Application {
 				"SuperAlgae",
 				"Ruca"
 			);
+    	
+    	
     	ComboBox<String> statsBtn = new ComboBox<String>(options);
     	statsBtn.setPromptText("stats");
     	statsBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -153,6 +156,7 @@ public class Main extends Application {
     		}	
     	});
     	
+    	
     	ComboBox<String> makeBtn = new ComboBox <String>(options);
     	makeBtn.setPromptText("make");
     	makeBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -192,12 +196,41 @@ public class Main extends Application {
     	});
 
 
+    	Button stepBtn = new Button("step");
+    	stepBtn.setOnAction(new EventHandler<ActionEvent>() {
+    		@Override
+    		public void handle(ActionEvent e) {
+    			Stage stepStage = new Stage();
+    			FlowPane stepPane = new FlowPane();
+    			Scene stepScene = new Scene(stepPane, 50,200);
+    			TextField stepTextField = new TextField("number of steps:");
+    			stepPane.getChildren().add(stepTextField);
+    			
+    			stepStage.setScene(stepScene);
+    			stepStage.show();
+    			
+    			stepTextField.setOnAction(new EventHandler<ActionEvent>() {
+    				@Override
+    				public void handle(ActionEvent e) {
+    					int stepNum = Integer.parseInt( stepTextField.getText() );
+    					System.out.println(stepNum);
+    					for (int i = 0; i < stepNum; i++) {
+    						Critter.worldTimeStep();
+    					}
+    	    			stepStage.close();
+    				}
+    			});
+    			
+    		}
+    	});
+    	
     	
     	view.addButton(showBtn);
     	view.addButton(quitBtn);
     	view.addButton(seedBtn);
     	view.addComboBox(statsBtn);
     	view.addComboBox(makeBtn);
+    	view.addButton(stepBtn);
     	Critter.passView(view);
     	Critter.displayWorld();
     }

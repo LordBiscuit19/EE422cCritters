@@ -56,8 +56,6 @@ public class View{
 				grid.add(s, c, r);
 			}
 		}
-		Shape t = new Circle (5);
-		grid.add(t,10, 10);
 	}
 	
 	
@@ -70,16 +68,36 @@ public class View{
 	}
 	
 	
-	public void show(List<Critter> listOfCrits) {
+	public void show() {
 		gridPane.getChildren().clear();
 		paintGridLines(gridPane);
-		paintCritters(listOfCrits);
 		primaryStage.show();
 		controlStage.show();
 	}
 	
-	private void paintCritters(List<Critter> listOfCrits) {
+	public void paintCritter(Critter crit, int x, int y) {
 		
+		switch(crit.viewShape()) {
+				
+			case CIRCLE : Shape circle = new Circle(5);
+			circle.setFill(crit.viewFillColor());
+			circle.setStroke(crit.viewOutlineColor());
+			gridPane.add(circle, x, y);
+			break;
+			
+			case SQUARE: Shape square = new Rectangle(5,5);
+			square.setFill(crit.viewFillColor());
+			square.setStroke(crit.viewOutlineColor());
+			gridPane.add(square, x, y);
+			break;
+			
+			case STAR : Shape star = new Star();
+			shape.setFill(crit.viewFillColor());
+			shape.setStroke(crit.viewOutlineColor());
+			gridPane.add(shape, x, y);
+			
+			
+		}
 	}
 	
 	

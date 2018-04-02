@@ -14,6 +14,8 @@ package assignment4;
  */
 
 import java.util.List;
+
+import assignment4.Critter.CritterShape;
 import assignment4.Critter.TestCritter;
 import java.lang.reflect.Method;
 
@@ -74,5 +76,20 @@ public class Ruca extends TestCritter {
 	public static void runStats(List<Critter> rucaList) {
 		System.out.println("There are currently: " + rucaList.size() + " Rucas' represented by 'R'");
 		
+	}
+	
+	@Override
+	public CritterShape viewShape() {
+		
+		return CritterShape.CIRCLE;
+	}
+	@Override
+	public javafx.scene.paint.Color viewFillColor(){
+		return javafx.scene.paint.Color.CHOCOLATE;
+	}
+	
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor(){
+		return javafx.scene.paint.Color.CHOCOLATE;
 	}
 }

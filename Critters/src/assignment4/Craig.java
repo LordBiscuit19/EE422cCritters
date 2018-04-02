@@ -1,6 +1,8 @@
 package assignment4;
 
 import java.lang.reflect.Method;
+
+import assignment4.Critter.CritterShape;
 /*
  * Example critter
  * Do not change or submit this file.
@@ -73,5 +75,20 @@ public class Craig extends Critter {
 		System.out.print("" + total_right / (GENE_TOTAL * 0.01 * craigs.size()) + "% right   ");
 		System.out.print("" + total_left / (GENE_TOTAL * 0.01 * craigs.size()) + "% left   ");
 		System.out.println();
+	}
+	
+	@Override
+	public CritterShape viewShape() {
+		
+		return CritterShape.CIRCLE;
+	}
+	@Override
+	public javafx.scene.paint.Color viewFillColor(){
+		return javafx.scene.paint.Color.ORANGE;
+	}
+	
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor(){
+		return javafx.scene.paint.Color.ORANGE;
 	}
 }

@@ -619,9 +619,10 @@ public abstract class Critter {
 	 * @param steps
 	 * @return
 	 */
-	protected static String look(int direction, boolean steps) {
-		
-		return "null";
-	}
+	protected final String look(int direction, boolean steps) {
+		if(!steps) {
+			
+		}
+		return "";}
 	
 }

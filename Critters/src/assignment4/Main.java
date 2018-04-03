@@ -157,36 +157,37 @@ public class Main extends Application {
     	});
     	
     	
-    	ComboBox<String> makeBtn = new ComboBox <String>(options);
-    	makeBtn.setPromptText("make");
+    	Button makeBtn = new Button("make");
     	makeBtn.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
-    		public void handle (ActionEvent e) {
-    			String critter = makeBtn.getValue();
-    			System.out.println(critter);
-			
+    		public void handle (ActionEvent e) {			
 				Stage makeStage = new Stage ();
 				FlowPane makePane = new FlowPane();
 				Scene makeScene = new Scene (makePane, 50, 200);
+				Button spawnBtn = new Button("spawn");
+				TextField makeCritterField = new TextField("Type of Critter: ");
 				TextField makeTextField  = new TextField("Number of Critters: ");
 	
 				makePane.getChildren().add(makeTextField);
+				makePane.getChildren().add(makeCritterField);
+				makePane.getChildren().add(spawnBtn);
 				makeStage.setScene(makeScene);
 				makeStage.show();
 				
-				makeTextField.setOnAction(new EventHandler <ActionEvent>(){
+				spawnBtn.setOnAction(new EventHandler <ActionEvent>(){
 					@Override
 					public void handle (ActionEvent e) {
 						try {
 							int makeNum = Integer.parseInt( makeTextField.getText());
 							System.out.println (makeNum);
-							for(int x=0; x < makeNum; x++) {
-								Critter.makeCritter(critter);	
-							}
+							
+	        					for (int i = 0; i < makeNum; i++) {
+	            					Critter.makeCritter(makeCritterField.getText());
+	        					}
 							makeStage.close();
 						}
 						catch (InvalidCritterException e2) {
-							System.out.println("error processing: " + critter);
+							System.out.println("error processing: " + makeCritterField.getText());
 							makeStage.close();
 						}
 					}
@@ -229,7 +230,7 @@ public class Main extends Application {
     	view.addButton(quitBtn);
     	view.addButton(seedBtn);
     	view.addComboBox(statsBtn);
-    	view.addComboBox(makeBtn);
+    	view.addButton(makeBtn);
     	view.addButton(stepBtn);
     	Critter.passView(view);
     	Critter.displayWorld();

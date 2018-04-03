@@ -21,7 +21,7 @@ public class View{
 	Stage primaryStage;
 	Stage controlStage;
 	GridPane gridPane;
-	FlowPane controlPane;
+	VBox controlPane;
 	Scene scene;
 	Scene controlScene;
 	
@@ -36,10 +36,10 @@ public class View{
 	public View(Stage stage) {
 		primaryStage = stage;
 		controlStage = new Stage();
-		controlPane = new FlowPane();
+		controlPane = new VBox();
 		gridPane = new GridPane();
 		scene = new Scene(gridPane, num_rows*spriteScaler, num_cols*spriteScaler);
-		controlScene = new Scene(controlPane, 300, 300);
+		controlScene = new Scene(controlPane, 100, 200);
 		primaryStage.setTitle("critters");
 		primaryStage.setScene(scene);
 		controlStage.setTitle("controls");
@@ -90,11 +90,6 @@ public class View{
 			square.setStroke(crit.viewOutlineColor());
 			gridPane.add(square, x, y);
 			break;
-			
-			case STAR : Shape star = new Star();
-			shape.setFill(crit.viewFillColor());
-			shape.setStroke(crit.viewOutlineColor());
-			gridPane.add(shape, x, y);
 			
 			
 		}

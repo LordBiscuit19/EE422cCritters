@@ -724,7 +724,7 @@ public abstract class Critter {
 						tempXCoord = (tempXCoord%Params.world_width);
 					}
 					if(tempYCoord < 0) {
-						tempYCoord = Params.world_height + (tempXCoord%Params.world_width);
+						tempYCoord = Params.world_height + (tempXCoord%Params.world_height);
 					}
 					break;
 					

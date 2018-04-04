@@ -234,6 +234,7 @@ public class Main extends Application {
     	view.addButton(stepBtn);
     	Critter.passView(view);
     	Critter.displayWorld();
+    	view.show();
     }
     
     

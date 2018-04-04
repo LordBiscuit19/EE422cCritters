@@ -614,15 +614,192 @@ public abstract class Critter {
 		
 	}
 	/**
-	 * 
+	 * look method will pass a direction integer and a step represented by a boolean.
+	 * If false one step is taken if true two steps are taken 
 	 * @param direction
 	 * @param steps
 	 * @return
 	 */
 	protected final String look(int direction, boolean steps) {
-		if(!steps) {
-			
+		int tempXCoord = x_coord;
+		int tempYCoord = y_coord;
+		String onSiteCritters = "";
+		if(!steps) {//false one step
+			switch (direction) {
+				case 0: tempXCoord = x_coord + 1;
+						if(tempXCoord >= Params.world_width) {
+							tempXCoord = 0;
+						}
+						break;
+						
+				case 1: tempXCoord++;
+						tempYCoord--;
+						if(tempXCoord >= Params.world_width && y_coord < 0) {
+							tempXCoord = 0;
+							tempYCoord = Params.world_height - 1;
+						}
+						if(tempXCoord >= Params.world_width) {
+							tempXCoord = 0;
+						}
+						if(tempYCoord < 0) {
+							tempYCoord = Params.world_height - 1;
+						}
+						break;
+						
+				case 2: tempYCoord--;
+						if(tempYCoord < 0) {
+							tempYCoord = Params.world_height - 1;
+						}
+						break;
+						
+				case 3:	tempXCoord--;
+						tempYCoord--;
+						if(tempXCoord < 0 && tempYCoord < 0) {
+							tempXCoord = Params.world_width - 1;
+							tempYCoord = Params.world_height - 1;
+						}
+						if(tempXCoord < 0) {
+							tempXCoord = Params.world_width - 1;
+						}
+						if(tempYCoord < 0) {
+							tempYCoord = Params.world_height - 1;
+						}
+						break;
+				case 4: tempXCoord--;
+						if(tempXCoord < 0) {
+							tempXCoord = Params.world_width - 1;
+						}
+						break;
+						
+				case 5: tempXCoord--;
+						tempYCoord++;
+						if(tempXCoord < 0 && tempYCoord > Params.world_height-1) {
+							tempXCoord = Params.world_width - 1;
+							tempYCoord = 0;
+						}
+						if(tempXCoord < 0) {
+							tempXCoord = Params.world_width - 1;
+						}
+						if(tempYCoord > Params.world_height-1) {
+							tempYCoord = 0;
+						}
+						break;
+						
+				case 6: tempYCoord++;
+						if(tempYCoord > Params.world_height-1) {
+							tempYCoord = 0;
+						}
+						break;
+						
+				case 7: tempXCoord++;
+						tempYCoord++;
+						if(tempXCoord > Params.world_width-1 && tempYCoord > Params.world_height-1) {
+							tempXCoord = 0;
+							tempYCoord = 0;
+						}
+						if(tempXCoord > Params.world_width-1) {
+							tempXCoord = 0;
+						}
+						if(tempYCoord > Params.world_height-1) {
+							tempYCoord = 0;
+						}
+						break;
+			}	
+		} else { //true two steps
+			switch (direction) {
+			case 0: tempXCoord = x_coord + 2;
+					if(tempXCoord >= Params.world_width) {
+						tempXCoord = (tempXCoord%Params.world_width);
+					}
+					break;
+					
+			case 1: tempXCoord+=2;
+					tempYCoord-=2;
+					if(tempXCoord >= Params.world_width && y_coord < 0) {
+						tempXCoord = (tempXCoord%Params.world_width);
+						tempYCoord = Params.world_height + (tempXCoord%Params.world_width);// mod with neg is neg
+					}
+					if(tempXCoord >= Params.world_width) {
+						tempXCoord = (tempXCoord%Params.world_width);
+					}
+					if(tempYCoord < 0) {
+						tempYCoord = Params.world_height + (tempXCoord%Params.world_width);
+					}
+					break;
+					
+			case 2: tempYCoord--;
+					if(tempYCoord < 0) {
+						tempYCoord = Params.world_height + (tempXCoord%Params.world_width);
+					}
+					break;
+					
+			case 3:	tempXCoord--;
+					tempYCoord--;
+					if(tempXCoord < 0 && tempYCoord < 0) {
+						tempXCoord = Params.world_width + (tempXCoord%Params.world_width);
+						tempYCoord = Params.world_height + (tempXCoord%Params.world_width);
+					}
+					if(tempXCoord < 0) {
+						tempXCoord = Params.world_width + (tempXCoord%Params.world_width);
+					}
+					if(tempYCoord < 0) {
+						tempYCoord = Params.world_height + (tempXCoord%Params.world_width);
+					}
+					break;
+			case 4: tempXCoord--;
+					if(tempXCoord < 0) {
+						tempXCoord = Params.world_width + (tempXCoord%Params.world_width);
+					}
+					break;
+					
+			case 5: tempXCoord--;
+					tempYCoord++;
+					if(tempXCoord < 0 && tempYCoord > Params.world_height-1) {
+						tempXCoord = Params.world_width + (tempXCoord%Params.world_width);
+						tempYCoord = tempYCoord%Params.world_height;
+					}
+					if(tempXCoord < 0) {
+						tempXCoord = Params.world_width + (tempXCoord%Params.world_width);
+					}
+					if(tempYCoord > Params.world_height-1) {
+						tempYCoord = tempYCoord%Params.world_height;
+					}
+					break;
+					
+			case 6: tempYCoord++;
+					if(tempYCoord > Params.world_height-1) {
+						tempYCoord = tempYCoord%Params.world_height;
+					}
+					break;
+					
+			case 7: tempXCoord++;
+					tempYCoord++;
+					if(tempXCoord > Params.world_width-1 && tempYCoord > Params.world_height-1) {
+						tempXCoord = (tempXCoord%Params.world_width);
+						tempYCoord = tempYCoord%Params.world_height;
+					}
+					if(tempXCoord > Params.world_width-1) {
+						tempXCoord = (tempXCoord%Params.world_width);
+					}
+					if(tempYCoord > Params.world_height-1) {
+						tempYCoord = tempYCoord%Params.world_height;
+					}
+					break;
+				}
+		
 		}
-		return "";}
+		
+		//checking to see if any critters are on the same spot selected 
+		for (Critter crit : population) {
+			if(crit.x_coord == tempXCoord && crit.y_coord == tempYCoord) {
+				onSiteCritters.concat(crit.toString());
+			}
+		}
+		//checking for empty string
+		if(onSiteCritters.equals("")) {
+			onSiteCritters = "NULL";
+		}
+		
+		return onSiteCritters;}
 	
 }

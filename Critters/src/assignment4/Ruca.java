@@ -74,7 +74,7 @@ public class Ruca extends TestCritter {
 	 * @param rucaList- a list of all instance of Rucas 
 	 */
 	public static String runStats(List<Critter> rucaList) {
-		return "There are currently: " + rucaList.size() + " Rucas' represented by 'R'";
+		return "There are currently: " + rucaList.size() + " Rucas' represented by brown circles \n";
 		
 	}
 	

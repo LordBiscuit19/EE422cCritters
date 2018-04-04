@@ -81,7 +81,7 @@ public class Ruca extends TestCritter {
 	@Override
 	public CritterShape viewShape() {
 		
-		return CritterShape.CIRCLE;
+		return CritterShape.TRIANGLE;
 	}
 	@Override
 	public javafx.scene.paint.Color viewFillColor(){

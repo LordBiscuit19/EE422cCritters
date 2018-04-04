@@ -94,9 +94,9 @@ public class View{
 			
 			case TRIANGLE : Polygon triangle = new Polygon ();
 			triangle.getPoints().addAll(new Double[]{
-					0.0 , 0.0,
-					0.0 , size-1.0,
-					(size-1.0)/2 , size-1.0, 	
+					0.0 , size-3.0,
+					size-3.0 , size-3.0,
+					(size-3.0)/2 , 0.0, 	
 			});
 			triangle.setFill(crit.viewFillColor());
 			triangle.setStroke(crit.viewOutlineColor());
@@ -104,11 +104,13 @@ public class View{
 			break;
 			
 			case DIAMOND : Polygon diamond = new Polygon();
-			diamond.getPoints().addAll(new Double[] {
-				0.0 , (size-1)/2.0,
-				(size-1.0)/2.0 , 0.0,
-				(size-1.0) , (size-1.0)/2,
-				(size-1.0)/2.0 , (size-1.0),
+			Double resize =(double) size;
+			diamond.getPoints().addAll(new Double[] {	
+				((resize*0.9)/2) , resize-resize,
+				(resize*0.9), ((resize*0.9)/2),
+				((resize*0.9)/2.0), resize*0.9,
+				resize-resize , ((resize*0.9)/2.0),
+				
 			});
 			diamond.setFill(crit.viewFillColor());
 			diamond.setStroke(crit.viewOutlineColor());

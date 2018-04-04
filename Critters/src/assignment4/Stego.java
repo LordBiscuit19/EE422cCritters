@@ -145,7 +145,7 @@ public class Stego extends TestCritter {
 	@Override
 	public CritterShape viewShape() {
 		
-		return CritterShape.CIRCLE;
+		return CritterShape.DIAMOND;
 	}
 	@Override
 	public javafx.scene.paint.Color viewFillColor(){

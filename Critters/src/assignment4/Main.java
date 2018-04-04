@@ -105,56 +105,69 @@ public class Main extends Application {
     	});
     	
     	
-    	ObservableList<String> options = FXCollections.observableArrayList(
-				"Craig",
-				"Algae",
-				"Stego",
-				"Yoshi",
-				"SuperAlgae",
-				"Ruca"
-			);
     	
     	
-    	ComboBox<String> statsBtn = new ComboBox<String>(options);
-    	statsBtn.setPromptText("stats");
+    	Button statsBtn = new Button("stats");
     	statsBtn.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
     		public void handle (ActionEvent e) {
-    			String critter = statsBtn.getValue();
-    			
-    			try{
-        			
-    				List<Critter> listOfCrits = Critter.getInstances(critter);
-    				String critter_class_name;
-    				
-    				critter_class_name = "assignment4." + critter;
-    				Class<?> c = Class.forName(critter_class_name);
-    				Method method = c.getMethod("runStats", List.class  );
-    				method.invoke(c, listOfCrits);
-    				
-    			
-        		}
-        		catch( InvalidCritterException e2)
-        		{
-        			System.out.println("error processing: " + critter);
-        		}
-        		catch (NoSuchMethodException e2) {
-        			System.out.println("error processing: " + critter);
-        		}
-        		catch (ClassNotFoundException e2) {
-        			System.out.println("error processing: " + critter);
-        		}
-        		catch (InvocationTargetException e2) {
-        			System.out.println("error processing: " + critter);
-        		} 
-        		catch (IllegalAccessException e2) {
-					System.out.println("error processing: " + critter);
-				} 
-        		catch (IllegalArgumentException e2) {
-					System.out.println("error processing: " + critter);
-				}
+    			Stage statsStage = new Stage ();
+				FlowPane statsPane = new FlowPane();
+				Scene statsScene = new Scene (statsPane, 50, 200);
+				Button showStatsBtn = new Button("show stats");
+				TextField statsText = new TextField("Type of Critter: ");
+	
+				statsPane.getChildren().add(statsText);
+				statsPane.getChildren().add(showStatsBtn);
+				statsStage.setScene(statsScene);
+				statsStage.show();
+				
+				showStatsBtn.setOnAction(new EventHandler <ActionEvent>(){
+					@Override
+					public void handle (ActionEvent e) {
+						try{
+		        			
+		    				List<Critter> listOfCrits = Critter.getInstances(statsText.getText());
+		    				String critter_class_name;
+		    				
+		    				critter_class_name = "assignment4." + statsText.getText();
+		    				Class<?> c = Class.forName(critter_class_name);
+		    				Method method = c.getMethod("runStats", List.class);
+		    				method.invoke(c, listOfCrits);
+		    				statsStage.close();
+		    			
+		        		}
+		        		catch( InvalidCritterException e2)
+		        		{
+		        			System.out.println("error processing: " + statsText.getText());
+		    				statsStage.close();
+		        		}
+		        		catch (NoSuchMethodException e2) {
+		        			System.out.println("error processing: " + statsText.getText());
+		    				statsStage.close();
+		        		}
+		        		catch (ClassNotFoundException e2) {
+		        			System.out.println("error processing: " + statsText.getText());
+		    				statsStage.close();
+		        		}
+		        		catch (InvocationTargetException e2) {
+		        			System.out.println("error processing: " + statsText.getText());
+		    				statsStage.close();
+		        		} 
+		        		catch (IllegalAccessException e2) {
+							System.out.println("error processing: " + statsText.getText());
+		    				statsStage.close();
+						} 
+		        		catch (IllegalArgumentException e2) {
+							System.out.println("error processing: " + statsText.getText());
+		    				statsStage.close();
+						}
+					}
+				});
     		}	
     	});
+    	
+    	
     	
     	
     	Button makeBtn = new Button("make");
@@ -229,7 +242,7 @@ public class Main extends Application {
     	view.addButton(showBtn);
     	view.addButton(quitBtn);
     	view.addButton(seedBtn);
-    	view.addComboBox(statsBtn);
+    	view.addButton(statsBtn);
     	view.addButton(makeBtn);
     	view.addButton(stepBtn);
     	Critter.passView(view);

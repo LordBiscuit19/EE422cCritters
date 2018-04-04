@@ -22,7 +22,7 @@ public class View{
 	Stage controlStage;
 	GridPane gridPane;
 	VBox controlPane;
-	Scene scene;
+	Scene primaryScene;
 	Scene controlScene;
 	
 	Canvas critterCanvas;
@@ -38,10 +38,10 @@ public class View{
 		controlStage = new Stage();
 		controlPane = new VBox();
 		gridPane = new GridPane();
-		scene = new Scene(gridPane, num_rows*spriteScaler, num_cols*spriteScaler);
+		primaryScene = new Scene(gridPane, num_rows*spriteScaler, num_cols*spriteScaler);
 		controlScene = new Scene(controlPane, 100, 200);
 		primaryStage.setTitle("critters");
-		primaryStage.setScene(scene);
+		primaryStage.setScene(primaryScene);
 		controlStage.setTitle("controls");
 		controlStage.setScene(controlScene);		
 	}

@@ -90,8 +90,8 @@ public class Stego extends TestCritter {
 	}
 
 	
-	public static void runStats(List<Critter> stegos) {
-		System.out.println("There are currently " + stegos.size() + " stegos represented as follows -- S:");
+	public static String runStats(List<Critter> stegos) {
+		return "There are currently " + stegos.size() + " stegos represented as follows -- S: \n";
 		
 	}
 	

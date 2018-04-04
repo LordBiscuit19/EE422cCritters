@@ -69,8 +69,8 @@ public class Yoshi extends TestCritter{
 	 * Will output  the current number of active Yoshi's on the board 
 	 * @param yoshiList- a list of all active instances of Yoshi 
 	 */
-	public static void runStats(List<Critter> yoshiList) {
-		System.out.println("There are currently: "+ yoshiList.size() + " Yoshis' represented by 'Y'");
+	public static String runStats(List<Critter> yoshiList) {
+		return "There are currently: "+ yoshiList.size() + " Yoshis' represented by 'Y'";
 	}
 	@Override
 	public CritterShape viewShape() {

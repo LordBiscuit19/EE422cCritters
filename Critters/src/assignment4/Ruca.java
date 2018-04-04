@@ -73,8 +73,8 @@ public class Ruca extends TestCritter {
 	 * Counts how many rucas are on the on board 
 	 * @param rucaList- a list of all instance of Rucas 
 	 */
-	public static void runStats(List<Critter> rucaList) {
-		System.out.println("There are currently: " + rucaList.size() + " Rucas' represented by 'R'");
+	public static String runStats(List<Critter> rucaList) {
+		return "There are currently: " + rucaList.size() + " Rucas' represented by 'R'";
 		
 	}
 	

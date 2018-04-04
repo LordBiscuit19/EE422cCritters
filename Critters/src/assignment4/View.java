@@ -39,11 +39,12 @@ public class View{
 		controlPane = new VBox();
 		gridPane = new GridPane();
 		primaryScene = new Scene(gridPane, num_rows*spriteScaler, num_cols*spriteScaler);
-		controlScene = new Scene(controlPane, 100, 200);
+		controlScene = new Scene(controlPane, 200, 200);
 		primaryStage.setTitle("critters");
 		primaryStage.setScene(primaryScene);
 		controlStage.setTitle("controls");
 		controlStage.setScene(controlScene);		
+		controlStage.show();
 	}
 	
 	
@@ -72,7 +73,6 @@ public class View{
 		gridPane.getChildren().clear();
 		paintGridLines(gridPane);
 		primaryStage.show();
-		controlStage.show();
 	}
 	
 	public void paintCritter(Critter crit, int x, int y) {
@@ -95,5 +95,12 @@ public class View{
 		}
 	}
 	
+	public void closeControls() {
+		controlStage.close();
+	}
+	
+	public void openControls() {
+		controlStage.show();
+	}
 	
 }

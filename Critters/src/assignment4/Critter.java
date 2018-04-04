@@ -550,11 +550,12 @@ public abstract class Critter {
 		
 		//*****
 		//view object calls
-		
+		/*
 		view.show();
 		for(Critter crit:population) {
 			view.paintCritter(crit, crit.x_coord, crit.y_coord);
 		}
+		*/
 	}
 	
 	
@@ -716,21 +717,21 @@ public abstract class Critter {
 					
 			case 1: tempXCoord+=2;
 					tempYCoord-=2;
-					if(tempXCoord >= Params.world_width && y_coord < 0) {
+					if(tempXCoord >= Params.world_width && tempYCoord < 0) {
 						tempXCoord = (tempXCoord%Params.world_width);
-						tempYCoord = Params.world_height + (tempXCoord%Params.world_width);// mod with neg is neg
+						tempYCoord = Params.world_height + (tempXCoord%Params.world_height);// mod with neg is neg
 					}
 					if(tempXCoord >= Params.world_width) {
 						tempXCoord = (tempXCoord%Params.world_width);
 					}
 					if(tempYCoord < 0) {
-						tempYCoord = Params.world_height + (tempXCoord%Params.world_width);
+						tempYCoord = Params.world_height + (tempXCoord%Params.world_height);
 					}
 					break;
 					
 			case 2: tempYCoord--;
 					if(tempYCoord < 0) {
-						tempYCoord = Params.world_height + (tempXCoord%Params.world_width);
+						tempYCoord = Params.world_height + (tempXCoord%Params.world_height);
 					}
 					break;
 					
@@ -738,13 +739,13 @@ public abstract class Critter {
 					tempYCoord--;
 					if(tempXCoord < 0 && tempYCoord < 0) {
 						tempXCoord = Params.world_width + (tempXCoord%Params.world_width);
-						tempYCoord = Params.world_height + (tempXCoord%Params.world_width);
+						tempYCoord = Params.world_height + (tempXCoord%Params.world_height);
 					}
 					if(tempXCoord < 0) {
 						tempXCoord = Params.world_width + (tempXCoord%Params.world_width);
 					}
 					if(tempYCoord < 0) {
-						tempYCoord = Params.world_height + (tempXCoord%Params.world_width);
+						tempYCoord = Params.world_height + (tempXCoord%Params.world_height);
 					}
 					break;
 			case 4: tempXCoord--;

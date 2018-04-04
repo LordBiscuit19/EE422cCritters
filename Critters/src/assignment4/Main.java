@@ -335,6 +335,7 @@ public class Main extends Application {
     	view.addButton(animateBtn);
     	Critter.passView(view);
     	Critter.displayWorld();
+    	view.show();
     }
     
     

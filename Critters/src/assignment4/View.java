@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
@@ -91,6 +92,44 @@ public class View{
 			gridPane.add(square, x, y);
 			break;
 			
+			case TRIANGLE : Polygon triangle = new Polygon ();
+			triangle.getPoints().addAll(new Double[]{
+					0.0 , 0.0,
+					0.0 , size-1.0,
+					(size-1.0)/2 , size-1.0, 	
+			});
+			triangle.setFill(crit.viewFillColor());
+			triangle.setStroke(crit.viewOutlineColor());
+			gridPane.add(triangle, x, y);
+			break;
+			
+			case DIAMOND : Polygon diamond = new Polygon();
+			diamond.getPoints().addAll(new Double[] {
+				0.0 , (size-1)/2.0,
+				(size-1.0)/2.0 , 0.0,
+				(size-1.0) , (size-1.0)/2,
+				(size-1.0)/2.0 , (size-1.0),
+			});
+			diamond.setFill(crit.viewFillColor());
+			diamond.setStroke(crit.viewOutlineColor());
+			gridPane.add(diamond, x, y);
+			
+			case STAR : Polygon star = new Polygon();
+			star.getPoints().addAll(new Double [] {
+					0.0 , 0.6*size,
+					0.3*size , 0.4*size,
+					0.2*size , 0.0,
+					0.5*size , 0.2*size,
+					0.8*size , 0.0,
+					0.7*size , 0.4*size,
+					1.0*size , 0.6*size,
+					0.6*size , 0.6*size,
+					0.4*size , 0.6*size, 
+					0.5*size , size*1.0,	
+			});
+			star.setFill(crit.viewFillColor());
+			star.setStroke(crit.viewOutlineColor());
+			gridPane.add(star, x, y);
 			
 		}
 	}

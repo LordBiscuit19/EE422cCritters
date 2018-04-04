@@ -300,8 +300,9 @@ public abstract class Critter {
 	 * @param critters List of Critters.- must pass a list of critters 
 	 * it will output on the console the number of each critter type on the board 
 	 */
-	public static void runStats(List<Critter> critters) {
-		System.out.print("" + critters.size() + " critters as follows -- ");
+	public static String runStats(List<Critter> critters) {
+		String output;
+		output = "" + critters.size() + " critters as follows -- ";
 		java.util.Map<String, Integer> critter_count = new java.util.HashMap<String, Integer>();
 		for (Critter crit : critters) {
 			String crit_string = crit.toString();
@@ -314,11 +315,11 @@ public abstract class Critter {
 		}
 		String prefix = "";
 		for (String s : critter_count.keySet()) {
-			System.out.print(prefix + s + ":" + critter_count.get(s));
+			output += prefix + s + ":" + critter_count.get(s);
 			prefix = ", ";
 		}
-				
-		System.out.println();		
+		output += "\n";
+		return output;
 	}
 	
 	/* the TestCritter class allows some critters to "cheat". If you want to 

@@ -55,8 +55,8 @@ public class Main extends Application {
 
     public void start(Stage stage) {
     	view = new View(stage);
+
     	
-    
     	
     	
     	Button showBtn = new Button("show");
@@ -133,7 +133,7 @@ public class Main extends Application {
 		    				critter_class_name = "assignment4." + statsText.getText();
 		    				Class<?> c = Class.forName(critter_class_name);
 		    				Method method = c.getMethod("runStats", List.class);
-		    				method.invoke(c, listOfCrits);
+		    				System.out.print(method.invoke(c, listOfCrits));
 		    				statsStage.close();
 		    			
 		        		}
@@ -239,12 +239,100 @@ public class Main extends Application {
     	});
     	
     	
+    	
+    	Button animateBtn = new Button("animate");
+    	animateBtn.setOnAction(new EventHandler<ActionEvent>() {
+    		boolean animateFlag = true;
+    		@Override
+    		public void handle (ActionEvent e) {			
+				Stage animateStage = new Stage ();
+				FlowPane animatePane = new FlowPane();
+				Scene animateScene = new Scene (animatePane, 200, 200);
+				Button startBtn = new Button("start");
+				Button stopBtn = new Button("stop");
+				TextField animateTextField  = new TextField("Number of steps per frame: ");
+				TextField critterStats = new TextField("show stats of this critter:");
+	
+				animatePane.getChildren().add(animateTextField);
+				animatePane.getChildren().add(critterStats);
+				animatePane.getChildren().add(startBtn);
+				animatePane.getChildren().add(stopBtn);
+				animateStage.setScene(animateScene);
+				animateStage.show();
+				
+				startBtn.setOnAction(new EventHandler <ActionEvent>(){
+					@Override
+					public void handle (ActionEvent e) {
+						view.closeControls();
+						
+						int frameNum = Integer.parseInt( animateTextField.getText());
+						System.out.println (frameNum);
+						
+						try {
+							while (animateFlag) {
+								for (int i = 0; i < frameNum; i++) {
+									Critter.worldTimeStep();
+								}
+								
+								Critter.displayWorld();
+								
+			    				List<Critter> listOfCrits = Critter.getInstances(critterStats.getText());
+			    				String critter_class_name;
+			    				critter_class_name = "assignment4." + critterStats.getText();
+			    				Class<?> c = Class.forName(critter_class_name);
+			    				Method method = c.getMethod("runStats", List.class  );
+			    				System.out.print(method.invoke(c, listOfCrits));
+				        			
+							}
+						}
+						
+						catch( InvalidCritterException e2)
+		        		{
+		        			System.out.println("error processing: " + critterStats.getText());
+		        		}
+		        		catch (NoSuchMethodException e2) {
+		        			System.out.println("error processing: " + critterStats.getText());
+		        		}
+		        		catch (ClassNotFoundException e2) {
+		        			System.out.println("error processing: " + critterStats.getText());
+		        		}
+		        		catch (InvocationTargetException e2) {
+		        			System.out.println("error processing: " + critterStats.getText());
+		        		} 
+		        		catch (IllegalAccessException e2) {
+							System.out.println("error processing: " + critterStats.getText());
+						} 
+		        		catch (IllegalArgumentException e2) {
+							System.out.println("error processing: " + critterStats.getText());
+						}
+						
+						animateStage.close();
+						view.openControls();
+					}
+					
+				});
+				
+				stopBtn.setOnAction(new EventHandler <ActionEvent>(){
+					@Override
+					public void handle (ActionEvent e) {
+						animateFlag = false;
+					}
+					
+				});
+				
+    		}
+    	});
+
+    	
+    	
+    	
     	view.addButton(showBtn);
     	view.addButton(quitBtn);
     	view.addButton(seedBtn);
     	view.addButton(statsBtn);
     	view.addButton(makeBtn);
     	view.addButton(stepBtn);
+    	view.addButton(animateBtn);
     	Critter.passView(view);
     	Critter.displayWorld();
     	view.show();

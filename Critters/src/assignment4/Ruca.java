@@ -74,14 +74,14 @@ public class Ruca extends TestCritter {
 	 * @param rucaList- a list of all instance of Rucas 
 	 */
 	public static String runStats(List<Critter> rucaList) {
-		return "There are currently: " + rucaList.size() + " Rucas' represented by brown circles \n";
+		return "There are currently: " + rucaList.size() + " Rucas' represented by brown diamond \n";
 		
 	}
 	
 	@Override
 	public CritterShape viewShape() {
 		
-		return CritterShape.CIRCLE;
+		return CritterShape.DIAMOND;
 	}
 	@Override
 	public javafx.scene.paint.Color viewFillColor(){

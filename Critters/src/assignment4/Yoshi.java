@@ -70,11 +70,11 @@ public class Yoshi extends TestCritter{
 	 * @param yoshiList- a list of all active instances of Yoshi 
 	 */
 	public static String runStats(List<Critter> yoshiList) {
-		return "There are currently: "+ yoshiList.size() + " Yoshis' represented by blue circles \n";
+		return "There are currently: "+ yoshiList.size() + " Yoshis' represented by blue triangle \n";
 	}
 	@Override
 	public CritterShape viewShape() {
-		return CritterShape.CIRCLE;
+		return CritterShape.TRIANGLE;
 	}
 	@Override
 	public javafx.scene.paint.Color viewFillColor(){

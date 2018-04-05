@@ -324,7 +324,13 @@ public class Main extends Application {
     	});
     	
     	
-    	//the animate button begins animation of the stage
+    	//the animate button begins animation of the stage the user will input the number of steps
+    	/**
+    	 * The animate button will take the user input of how many steps to output at each screen and
+    	 * which Critter to output the stats for as the the stage is updated for each step increment
+    	 * this will continue until the user presses the stop button
+    	 */
+    
     	Button animateBtn = new Button("animate");
     	animateBtn.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
@@ -422,184 +428,12 @@ public class Main extends Application {
         /* Write your code below. */
         
     	Application.launch(args);
-    	
-    	
-    	/*
-    	System.out.print("critters>");
-        
-        String input = kb.nextLine();
-        
-        
-        //main while loops that runs until the quit command is entered
-        while (!input.equals("quit")) {
-        	String[] parsedString = input.split("\\s+");
-        	
-        	
-        	//show command
-        	if(parsedString[0].equals("show")) {
-        		if (parsedString.length <= 1) {
-            		Critter.displayWorld();
-            		//view.show();
-        		}
-        		else {
-        			System.out.println("error processing: " + input);
-        		}
-        	}
-        	
-        	//step command
-        	else if(parsedString[0].equals("step")) {
-        		if (parsedString.length <= 2) {
-	        		if (parsedString.length > 1) {
-		        		if(stringIsInt(parsedString[1])) {
-		        			for (int i = 0; i < Integer.parseInt(parsedString[1]); i++) {
-		        				Critter.worldTimeStep();
-		        			}
-		        		}
-		        		
-		        		else {
-		        			System.out.println("error processing: " + input);
-		        		}
-		        		
-	        		}
-	        		
-	        		else {
-	        			Critter.worldTimeStep();
-	        		}
-        		}
-        		
-        		else {
-        			System.out.println("error processing: " + input);
-        		}
-        		
-        	}
-        	
-        	
-        	
-        	//seed command
-        	else if (parsedString[0].equals("seed")) {
-        		if(parsedString.length <= 2) {
-	        		if(stringIsInt(parsedString[1])) {
-	        			Critter.setSeed(Integer.parseInt(parsedString[1]));
-	        		}
-	        		else {
-	        			System.out.println("error processing: " + input);
-	        		}
-        		}
-        		else {
-        			System.out.println("error processing: " + input);
-        		}
-        	}
-        	
-        	
-        	
-        	
-        	//make command
-        	else if(parsedString[0].equals("make")) {
-        		//make sure command has the right number of arguments
-        		if(parsedString.length <= 3 && parsedString.length > 1) {
-        			
-        			//if there is no number argument
-        			if (parsedString.length <= 2) {
-        				try {
-        					Critter.makeCritter(parsedString[1]);
-        				}
-        				catch (InvalidCritterException e) {
-                			System.out.println("error processing: " + input);
-        				}
-        			}
-        			
-        			//if there is a number argument
-        			else {
-        				if (stringIsInt(parsedString[2])) {
-        					int numCrittersToMake = Integer.parseInt(parsedString[2]);
-        					try {
-	        					for (int i = 0; i < numCrittersToMake; i++) {
-	            					Critter.makeCritter(parsedString[1]);
-	        					}
-        					}
-        					catch (InvalidCritterException e) {
-                    			System.out.println("error processing: " + input);
-            				}
-        				}
-        				else {
-                			System.out.println("error processing: " + input);
-                		}
-        			}
-        			
-        		}
-        		
-        		else {
-        			System.out.println("error processing: " + input);
-        		}
-        	}
-        	
-        	
-        	
-        	//stats command
-        	else if(parsedString[0].equals("stats") && parsedString.length == 2) {
-        		try{
-        			
-    				List<Critter> listOfCrits = Critter.getInstances(parsedString[1]);
-    				String critter_class_name;
-    				
-    				critter_class_name = "assignment4." + parsedString[1];
-    				Class<?> c = Class.forName(critter_class_name);
-    				Method method = c.getMethod("runStats", List.class  );
-    				method.invoke(c, listOfCrits);
-    				
-    			
-        		}
-        		catch( InvalidCritterException e)
-        		{
-        			System.out.println("error processing: " + input);
-        		}
-        		catch (NoSuchMethodException e) {
-        			System.out.println("error processing: " + input);
-        		}
-        		catch (ClassNotFoundException e) {
-        			System.out.println("error processing: " + input);
-        		}
-        		catch (InvocationTargetException e) {
-        			System.out.println("error processing: " + input);
-        		} 
-        		catch (IllegalAccessException e) {
-					System.out.println("error processing: " + input);
-				} 
-        		catch (IllegalArgumentException e) {
-					System.out.println("error processing: " + input);
-				}
-       
-        		
-        	}
-        	
-        	//if the command entered is not in the library of commands
-        	else {
-        		System.out.println("invalid command: " + input);
-        	
-        	}
-        	
-        	
-            System.out.print("critters>");
-            input = kb.nextLine();
-        }
-        
-        
-        
-        
-        
-        
-        // System.out.println("GLHF");
-        
-        /* Write your code above */
-        //System.out.flush();
-
-        
     }
     
     
     /**
-     * helper function
-     * @param str if the string is an int 
+     * helper function will check if the passed string is an integer ranging from 0 to 9
+     * @param str if the string is an integer
      * @return true if the string is an in ranging from 0 to 9 
      */
     public static boolean stringIsInt(String str) {

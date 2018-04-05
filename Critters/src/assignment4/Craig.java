@@ -75,22 +75,23 @@ public class Craig extends Critter {
 		output += "" + total_back / (GENE_TOTAL * 0.01 * craigs.size()) + "% back   ";
 		output += "" + total_right / (GENE_TOTAL * 0.01 * craigs.size()) + "% right   ";
 		output += "" + total_left / (GENE_TOTAL * 0.01 * craigs.size()) + "% left   ";
-		output += "represented as orange circles\n";
+		output += "represented as red stars\n";
 		return output;
 	}
 	
 	@Override
+	
 	public CritterShape viewShape() {
 		
-		return CritterShape.CIRCLE;
+		return CritterShape.STAR;
 	}
 	@Override
 	public javafx.scene.paint.Color viewFillColor(){
-		return javafx.scene.paint.Color.ORANGE;
+		return javafx.scene.paint.Color.RED;
 	}
 	
 	@Override
 	public javafx.scene.paint.Color viewOutlineColor(){
-		return javafx.scene.paint.Color.ORANGE;
+		return javafx.scene.paint.Color.RED;
 	}
 }

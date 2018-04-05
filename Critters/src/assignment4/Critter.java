@@ -502,7 +502,7 @@ public abstract class Critter {
 	 * example: craig will be represented as C, algae will be represented as A
 	 * there is a boarder around the world. 
 	 * When critters overlap the space occupied will contain an integer representing the number 
-	 * of critters on the space 
+	 * of critters on the space  on the console
 	 */
 	public static void displayWorld() {
 		char[][] display = new char[Params.world_height][Params.world_width];
@@ -618,13 +618,13 @@ public abstract class Critter {
 	 * If false one step is taken if true two steps are taken 
 	 * @param direction
 	 * @param steps
-	 * @return
+	 * @return returns a string with the toString representation of the critters occupying the location checked
 	 */
 	protected final String look(int direction, boolean steps) {
 		int tempXCoord = x_coord;
 		int tempYCoord = y_coord;
 		String onSiteCritters = "";
-		if(!steps) {//false one step
+		if(!steps) {//if false one step taken
 			switch (direction) {
 				case 0: tempXCoord = x_coord + 1;
 						if(tempXCoord >= Params.world_width) {
@@ -706,7 +706,7 @@ public abstract class Critter {
 						break;
 			}	
 		} 
-		else { //true two steps
+		else { //if true two steps taken
 			switch (direction) {
 			case 0: tempXCoord = x_coord + 2;
 					if(tempXCoord >= Params.world_width) {

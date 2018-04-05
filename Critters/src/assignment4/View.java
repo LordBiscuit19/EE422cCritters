@@ -17,31 +17,38 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+
+/**
+ * The view class stores the javafx objects needed to display the world. It has several functions to update these object outlined in the further comments
+ * @author Don and Jen
+ */
 public class View{
 	
-	Stage primaryStage;
-	Stage controlStage;
-	GridPane gridPane;
-	VBox controlPane;
-	Scene primaryScene;
-	Scene controlScene;
-	Stage textStage;
-	FlowPane textPane;
-	Scene textScene;
-	TextArea textArea;
+	Stage primaryStage;	//the stage for the grid
+	Stage controlStage;	//the stage for the controls
+	GridPane gridPane;	//the pane for the grid
+	VBox controlPane;	//the pane for the controls
+	Scene primaryScene;	//the scene for the grid
+	Scene controlScene;	//the scene for the controls
+	Stage textStage;	//the stage for the output text
+	FlowPane textPane;	//the pane for the output text
+	Scene textScene;	//the scene for the output text
+	TextArea textArea;	//the textArea for the output text
 	
-	Canvas critterCanvas;
 	
-	static int spriteScaler=15;
 	static int num_rows = Params.world_width;
 	static int num_cols = Params.world_height;
-	static int size = 15;
+	static int size = 15;	//the size scaler of the world
 	
 	
+	/**
+	 * constructor for the view object
+	 * @param stage is set to the primary stage local object used for the grid
+	 */
 	public View(Stage stage) {
 		primaryStage = stage;
 		gridPane = new GridPane();
-		primaryScene = new Scene(gridPane, num_rows*spriteScaler, num_cols*spriteScaler);
+		primaryScene = new Scene(gridPane, num_rows*size, num_cols*size);
 		primaryStage.setTitle("critters");
 		primaryStage.setScene(primaryScene);
 		
@@ -63,6 +70,10 @@ public class View{
 	}
 	
 	
+	/**
+	 * Paints a grid onto the gridPane passed in the grid parameter. The size of the grid is dependent on Size
+	 * @param grid	the GridPane to draw the grid on
+	 */
 	private static void paintGridLines(GridPane grid) {
 		for (int r = 0; r < num_rows; r++) {
 			for (int c = 0; c < num_cols; c++) {
@@ -75,21 +86,31 @@ public class View{
 	}
 	
 	
+	/**
+	 * adds a button to the control pane
+	 * @param btn the button to add to the pane
+	 */
 	public void addButton(Button btn) {
 		controlPane.getChildren().add(btn);
 	}
 	
-	public void addComboBox(ComboBox box) {
-		controlPane.getChildren().add(box);
-	}
 	
-	
+	/**
+	 * resets the primary stage and repaints the grid
+	 */
 	public void show() {
 		gridPane.getChildren().clear();
 		paintGridLines(gridPane);
 		primaryStage.show();
 	}
 	
+	
+	/**
+	 * paints the critter passed to the function at the desired x and y locations
+	 * @param crit	the critter to paint
+	 * @param x	the desired x location
+	 * @param y	the desired y location
+	 */
 	public void paintCritter(Critter crit, int x, int y) {
 		
 		switch(crit.viewShape()) {
@@ -150,15 +171,24 @@ public class View{
 		}
 	}
 	
+	/**
+	 * Closes the control stage so users cannot change anything during animation
+	 */
 	public void closeControls() {
 		controlStage.close();
 	}
 	
+	/**
+	 * re-opens the control stage after animation
+	 */
 	public void openControls() {
 		controlStage.show();
 	}
 	
-	
+	/**
+	 * adds the string s to the output text box
+	 * @param s the string to display
+	 */
 	public void addText(String s) {
 		textArea.appendText(s);
 	}

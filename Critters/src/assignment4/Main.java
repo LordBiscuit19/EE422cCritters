@@ -17,6 +17,8 @@ import java.util.Scanner;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
@@ -63,6 +65,11 @@ public class Main extends Application {
     }
 
     
+    /**
+     * this function is called by Timeline to animated the stage when the animate button is pushed
+     * @param frameNum	the number of steps to display per frame
+     * @param critterStats	the critter the user wants to see the stats of during animations
+     */
     public void animate(int frameNum, String critterStats) {
     	if (animationFlag) {
     	
@@ -112,8 +119,13 @@ public class Main extends Application {
 
     
     
+    /**
+     * This is the control algorithm of Critters. It creates several buttons and responds to user input.
+     * The control buttons are: Make, show, stats, seed, animate, quit, and step
+     */
     public void start(Stage stage) {
     	view = new View(stage);
+    	//timelime is used to animate the display. It updates every second
     	Timeline timeline = new Timeline(new KeyFrame(
     	        Duration.millis(1000),
     	        ae -> animate(animateSpeed, statsCritter)));
@@ -121,7 +133,7 @@ public class Main extends Application {
     	timeline.play();
     	
     	
-    	
+    	//the show button calls Critter.displayWorld to update the grid display
     	Button showBtn = new Button("show");
     	showBtn.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
@@ -131,7 +143,7 @@ public class Main extends Application {
     		}
     	});
     	
-    	
+    	//the seed button sets the random seed of the Critter class
     	Button seedBtn = new Button("seed");
     	seedBtn.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
@@ -159,6 +171,7 @@ public class Main extends Application {
     	});
     	
     	
+    	//the quit button terminates the program
     	Button quitBtn = new Button("quit");
     	quitBtn.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
@@ -169,7 +182,7 @@ public class Main extends Application {
     	
     	
     	
-    	
+    	//the stats button shows the stats of the desired critter
     	Button statsBtn = new Button("stats");
     	statsBtn.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
@@ -191,7 +204,7 @@ public class Main extends Application {
 						try{
 		        			
 		    				List<Critter> listOfCrits = Critter.getInstances(statsText.getText());
-		    				String critter_class_name;
+		    				String critter_class_name;	//the type of critter to display stats of
 		    				
 		    				critter_class_name = "assignment4." + statsText.getText();
 		    				Class<?> c = Class.forName(critter_class_name);
@@ -239,7 +252,7 @@ public class Main extends Application {
     	
     	
     	
-    	
+    	//the make button makes a user specified number of the desired critter
     	Button makeBtn = new Button("make");
     	makeBtn.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
@@ -261,11 +274,11 @@ public class Main extends Application {
 					@Override
 					public void handle (ActionEvent e) {
 						try {
-							int makeNum = Integer.parseInt( makeTextField.getText());
+							int makeNum = Integer.parseInt( makeTextField.getText());	//the number of critters to make
 							System.out.println (makeNum);
 							
 	        					for (int i = 0; i < makeNum; i++) {
-	            					Critter.makeCritter(makeCritterField.getText());
+	            					Critter.makeCritter(makeCritterField.getText());	//makes the desired critter
 	        					}
 							makeStage.close();
 						}
@@ -281,6 +294,7 @@ public class Main extends Application {
     	});
 
 
+    	//steps the specified number of time steps
     	Button stepBtn = new Button("step");
     	stepBtn.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
@@ -297,7 +311,7 @@ public class Main extends Application {
     			stepTextField.setOnAction(new EventHandler<ActionEvent>() {
     				@Override
     				public void handle(ActionEvent e) {
-    					int stepNum = Integer.parseInt( stepTextField.getText() );
+    					int stepNum = Integer.parseInt( stepTextField.getText() );	//the desired number of time steps to move
     					System.out.println(stepNum);
     					for (int i = 0; i < stepNum; i++) {
     						Critter.worldTimeStep();
@@ -310,7 +324,7 @@ public class Main extends Application {
     	});
     	
     	
-    	
+    	//the animate button begins animation of the stage
     	Button animateBtn = new Button("animate");
     	animateBtn.setOnAction(new EventHandler<ActionEvent>() {
     		@Override

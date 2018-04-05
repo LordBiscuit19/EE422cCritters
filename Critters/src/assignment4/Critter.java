@@ -550,12 +550,10 @@ public abstract class Critter {
 		
 		//*****
 		//view object calls
-		
 		view.show();
 		for(Critter crit:population) {
 			view.paintCritter(crit, crit.x_coord, crit.y_coord);
 		}
-		
 	}
 	
 	
@@ -707,7 +705,8 @@ public abstract class Critter {
 						}
 						break;
 			}	
-		} else { //true two steps
+		} 
+		else { //true two steps
 			switch (direction) {
 			case 0: tempXCoord = x_coord + 2;
 					if(tempXCoord >= Params.world_width) {
@@ -793,8 +792,8 @@ public abstract class Critter {
 		
 		//checking to see if any critters are on the same spot selected 
 		for (Critter crit : population) {
-			if(crit.x_coord ==tempXCoord && crit.y_coord == tempYCoord) {
-				onSiteCritters.concat(crit.toString());
+			if((crit.x_coord == tempXCoord) && (crit.y_coord == tempYCoord)) {
+				onSiteCritters += crit.toString();
 			}
 		}
 		//checking for empty string

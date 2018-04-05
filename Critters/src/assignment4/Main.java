@@ -17,6 +17,10 @@ import java.util.Scanner;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import javafx.animation.Animation;
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
 import javafx.application.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,6 +32,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.event.ActionEvent;
 
 
@@ -46,6 +51,10 @@ public class Main extends Application {
     private static boolean DEBUG = false; // Use it or not, as you wish!
     static PrintStream old = System.out;	// if you want to restore output to console
     View view;
+	static boolean animationFlag = false;
+	static String statsCritter;
+	static int animateSpeed;
+
 
 
     // Gets the package name.  The usage assumes that Critter and its subclasses are all in the same package.
@@ -53,9 +62,63 @@ public class Main extends Application {
         myPackage = Critter.class.getPackage().toString().split(" ")[1];
     }
 
+    
+    public void animate(int frameNum, String critterStats) {
+    	if (animationFlag) {
+    	
+	    	for (int i = 0; i < frameNum; i++) {
+				Critter.worldTimeStep();
+			}
+			
+			Critter.displayWorld();
+			try {
+				List<Critter> listOfCrits = Critter.getInstances(critterStats);
+				String critter_class_name;
+				critter_class_name = "assignment4." + critterStats;
+				Class<?> c = Class.forName(critter_class_name);
+				Method method = c.getMethod("runStats", List.class  );
+				view.addText(method.invoke(c, listOfCrits).toString());
+				System.out.print(method.invoke(c, listOfCrits));
+				
+			}
+	
+			catch( InvalidCritterException e2)
+			{
+				System.out.println("error processing: " + critterStats);
+				view.addText("error processing: " + critterStats);
+			}
+			catch (NoSuchMethodException e2) {
+				System.out.println("error processing: " + critterStats);
+				view.addText("error processing: " + critterStats);
+			}
+			catch (ClassNotFoundException e2) {
+				System.out.println("error processing: " + critterStats);
+				view.addText("error processing: " + critterStats);
+			}
+			catch (InvocationTargetException e2) {
+				System.out.println("error processing: " + critterStats);
+				view.addText("error processing: " + critterStats);
+			} 
+			catch (IllegalAccessException e2) {
+				System.out.println("error processing: " + critterStats);
+				view.addText("error processing: " + critterStats);
+			} 
+			catch (IllegalArgumentException e2) {
+				System.out.println("error processing: " + critterStats);
+				view.addText("error processing: " + critterStats);
+			}
+    	}
+    }
+
+    
+    
     public void start(Stage stage) {
     	view = new View(stage);
-
+    	Timeline timeline = new Timeline(new KeyFrame(
+    	        Duration.millis(1000),
+    	        ae -> animate(animateSpeed, statsCritter)));
+    	timeline.setCycleCount(Animation.INDEFINITE);
+    	timeline.play();
     	
     	
     	
@@ -133,6 +196,7 @@ public class Main extends Application {
 		    				critter_class_name = "assignment4." + statsText.getText();
 		    				Class<?> c = Class.forName(critter_class_name);
 		    				Method method = c.getMethod("runStats", List.class);
+		    				view.addText(method.invoke(c, listOfCrits).toString());
 		    				System.out.print(method.invoke(c, listOfCrits));
 		    				statsStage.close();
 		    			
@@ -140,26 +204,32 @@ public class Main extends Application {
 		        		catch( InvalidCritterException e2)
 		        		{
 		        			System.out.println("error processing: " + statsText.getText());
+		        			view.addText("error processing: " + statsText.getText());
 		    				statsStage.close();
 		        		}
 		        		catch (NoSuchMethodException e2) {
 		        			System.out.println("error processing: " + statsText.getText());
+		        			view.addText("error processing: " + statsText.getText());
 		    				statsStage.close();
 		        		}
 		        		catch (ClassNotFoundException e2) {
 		        			System.out.println("error processing: " + statsText.getText());
+		        			view.addText("error processing: " + statsText.getText());
 		    				statsStage.close();
 		        		}
 		        		catch (InvocationTargetException e2) {
 		        			System.out.println("error processing: " + statsText.getText());
+		        			view.addText("error processing: " + statsText.getText());
 		    				statsStage.close();
 		        		} 
 		        		catch (IllegalAccessException e2) {
 							System.out.println("error processing: " + statsText.getText());
+							view.addText("error processing: " + statsText.getText());
 		    				statsStage.close();
 						} 
 		        		catch (IllegalArgumentException e2) {
 							System.out.println("error processing: " + statsText.getText());
+							view.addText("error processing: " + statsText.getText());
 		    				statsStage.close();
 						}
 					}
@@ -201,6 +271,7 @@ public class Main extends Application {
 						}
 						catch (InvalidCritterException e2) {
 							System.out.println("error processing: " + makeCritterField.getText());
+							view.addText("error processing: " + makeCritterField.getText());
 							makeStage.close();
 						}
 					}
@@ -242,9 +313,8 @@ public class Main extends Application {
     	
     	Button animateBtn = new Button("animate");
     	animateBtn.setOnAction(new EventHandler<ActionEvent>() {
-    		boolean animateFlag = true;
     		@Override
-    		public void handle (ActionEvent e) {			
+    		public void handle (ActionEvent e) {	
 				Stage animateStage = new Stage ();
 				FlowPane animatePane = new FlowPane();
 				Scene animateScene = new Scene (animatePane, 200, 200);
@@ -263,51 +333,12 @@ public class Main extends Application {
 				startBtn.setOnAction(new EventHandler <ActionEvent>(){
 					@Override
 					public void handle (ActionEvent e) {
+						animationFlag = true;
 						view.closeControls();
 						
-						int frameNum = Integer.parseInt( animateTextField.getText());
-						System.out.println (frameNum);
-						
-						try {
-							while (animateFlag) {
-								for (int i = 0; i < frameNum; i++) {
-									Critter.worldTimeStep();
-								}
+						animateSpeed = Integer.parseInt( animateTextField.getText());
+						statsCritter = critterStats.getText();
 								
-								Critter.displayWorld();
-								
-			    				List<Critter> listOfCrits = Critter.getInstances(critterStats.getText());
-			    				String critter_class_name;
-			    				critter_class_name = "assignment4." + critterStats.getText();
-			    				Class<?> c = Class.forName(critter_class_name);
-			    				Method method = c.getMethod("runStats", List.class  );
-			    				System.out.print(method.invoke(c, listOfCrits));
-				        			
-							}
-						}
-						
-						catch( InvalidCritterException e2)
-		        		{
-		        			System.out.println("error processing: " + critterStats.getText());
-		        		}
-		        		catch (NoSuchMethodException e2) {
-		        			System.out.println("error processing: " + critterStats.getText());
-		        		}
-		        		catch (ClassNotFoundException e2) {
-		        			System.out.println("error processing: " + critterStats.getText());
-		        		}
-		        		catch (InvocationTargetException e2) {
-		        			System.out.println("error processing: " + critterStats.getText());
-		        		} 
-		        		catch (IllegalAccessException e2) {
-							System.out.println("error processing: " + critterStats.getText());
-						} 
-		        		catch (IllegalArgumentException e2) {
-							System.out.println("error processing: " + critterStats.getText());
-						}
-						
-						animateStage.close();
-						view.openControls();
 					}
 					
 				});
@@ -315,7 +346,9 @@ public class Main extends Application {
 				stopBtn.setOnAction(new EventHandler <ActionEvent>(){
 					@Override
 					public void handle (ActionEvent e) {
-						animateFlag = false;
+						animationFlag = false;
+						animateStage.close();
+						view.openControls();
 					}
 					
 				});
@@ -337,6 +370,7 @@ public class Main extends Application {
     	Critter.displayWorld();
     	view.show();
     }
+    
     
     
     /**

@@ -75,7 +75,7 @@ public class Craig extends Critter {
 		output += "" + total_back / (GENE_TOTAL * 0.01 * craigs.size()) + "% back   ";
 		output += "" + total_right / (GENE_TOTAL * 0.01 * craigs.size()) + "% right   ";
 		output += "" + total_left / (GENE_TOTAL * 0.01 * craigs.size()) + "% left   ";
-		output += "\n";
+		output += "represented as orange circles\n";
 		return output;
 	}
 	

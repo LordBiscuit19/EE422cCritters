@@ -26,29 +26,50 @@ public class View{
 	VBox controlPane;
 	Scene primaryScene;
 	Scene controlScene;
+	Stage textStage;
+	FlowPane textPane;
+	Scene textScene;
+	TextArea textArea;
 	
 	Canvas critterCanvas;
 	
+<<<<<<< HEAD
 	//ReadOnlyDoubleProperty<Double> doubleSize = new ReadOnlyDoubleProperty<Double>();
 	
 	static int spriteScaler=20;
 	static int num_rows = Params.world_width;
 	static int num_cols = Params.world_height;
 	static int size = 20;
+=======
+	static int spriteScaler=15;
+	static int num_rows = Params.world_width;
+	static int num_cols = Params.world_height;
+	static int size = 15;
+>>>>>>> ac45dd860dac671efc0eba540880abdd37870c8f
 	
 	
 	public View(Stage stage) {
 		primaryStage = stage;
-		controlStage = new Stage();
-		controlPane = new VBox();
 		gridPane = new GridPane();
 		primaryScene = new Scene(gridPane, num_rows*spriteScaler, num_cols*spriteScaler);
-		controlScene = new Scene(controlPane, 200, 200);
 		primaryStage.setTitle("critters");
 		primaryStage.setScene(primaryScene);
+		
+		controlStage = new Stage();
+		controlPane = new VBox();
+		controlScene = new Scene(controlPane, 200, 200);
 		controlStage.setTitle("controls");
 		controlStage.setScene(controlScene);		
 		controlStage.show();
+		
+		textStage = new Stage();
+		textPane = new FlowPane();
+		textScene = new Scene(textPane, 400, 200);
+		textArea = new TextArea();
+		textPane.getChildren().add(textArea);
+		textStage.setTitle("Program Output:");
+		textStage.setScene(textScene);
+		textStage.show();
 	}
 	
 	
@@ -84,13 +105,13 @@ public class View{
 		
 		switch(crit.viewShape()) {
 				
-			case CIRCLE : Shape circle = new Circle(5);
+			case CIRCLE : Shape circle = new Circle(size/2);
 			circle.setFill(crit.viewFillColor());
 			circle.setStroke(crit.viewOutlineColor());
 			gridPane.add(circle, x, y);
 			break;
 			
-			case SQUARE: Shape square = new Rectangle(5,5);
+			case SQUARE: Shape square = new Rectangle(size/2,size/2);
 			square.setFill(crit.viewFillColor());
 			square.setStroke(crit.viewOutlineColor());
 			gridPane.add(square, x, y);
@@ -151,6 +172,11 @@ public class View{
 	
 	public void openControls() {
 		controlStage.show();
+	}
+	
+	
+	public void addText(String s) {
+		textArea.appendText(s);
 	}
 	
 }

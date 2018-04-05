@@ -44,7 +44,7 @@ public class SuperAlgae extends TestCritter {
 	}
 	
 	public static String runStats(List<Critter> superAlgaes) {
-		return "There are currently " + superAlgaes.size() + " superAlgaes represented as follows -- A:";
+		return "There are currently " + superAlgaes.size() + " superAlgaes represented as red circles \n";
 		
 	}
 

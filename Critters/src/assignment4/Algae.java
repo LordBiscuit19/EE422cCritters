@@ -1,5 +1,7 @@
 package assignment4;
 
+import java.util.List;
+
 import assignment4.Critter.CritterShape;
 /*
  * Do not change or submit this file.
@@ -28,5 +30,10 @@ public class Algae extends TestCritter {
 	@Override
 	public javafx.scene.paint.Color viewOutlineColor(){
 		return javafx.scene.paint.Color.GREEN;
+	}
+	
+	public static String runStats(List<Critter> algaeList) {
+		return "There are currently: " + algaeList.size() + " Algaes' represented by green circles \n";
+		
 	}
 }

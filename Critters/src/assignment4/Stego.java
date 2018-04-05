@@ -44,103 +44,34 @@ public class Stego extends TestCritter {
 		
 		//movement algorithm for Stego
 		dir = getRandomInt(number_of_directions);
-		try {
 			
-			
-			List<Critter> closeAlgae = getInstances("Algae");
-			//we find all Algae within a radius of 49 of the Stego
-			for (int i = 0; i < closeAlgae.size(); i++) {
-				if (compareDistance(this, closeAlgae.get(i)) > 50) {
-					closeAlgae.remove(i);
-					i--;
-				}
+		//first look for algae 2 steps away and if one is found set the movement direction to the corresponding direction
+		for (int i = 0; i < 8; i++) {
+			if(this.look(i,true).equals("@")) {
+				dir = i;
 			}
-			
-			
-			//if there are any algae within a radius of 4 we move toward the closest one
-			if (!closeAlgae.isEmpty()) {
-				
-				//find the closest algae
-				Algae closestAlgae = (Algae) closeAlgae.get(0);
-				for (int i = 1; i < closeAlgae.size(); i++) {
-					if (compareDistance(this, closestAlgae) > compareDistance(this, closeAlgae.get(i))) {
-						closestAlgae = (Algae) closeAlgae.get(i);
-					}
-				}
-				
-				
-				//decide what direction to  move based on the closet Algae
-				walk(moveTowardAlgae(this, closestAlgae));
-				
-				
-				
-			}
-			
-			
-			//if there are no algae close by just walk randomly
-			else {
-				walk(dir);
-			}
-			
-			
 		}
-		catch (InvalidCritterException e) {
-			System.out.println("Stego looked for Algae and getInstances did not work");
+		//then look for algae 1 step away and if one is found set the movement direction to the corresponding direction
+		//this way the stego will prioritize the closer algae
+		for (int i = 0; i < 8; i++) {
+			if(this.look(i,false).equals("@")) {
+				dir = i;
+			}
 		}
+			
+		walk(dir);
+			
+			
 	}
 
 	
 	public static String runStats(List<Critter> stegos) {
-		return "There are currently " + stegos.size() + " stegos represented as follows -- S: \n";
+		return "There are currently " + stegos.size() + " stegos represented as purple circles \n";
 		
 	}
 	
 	
-	/**
-	 * calculates the distance between a Stego Critter and an Algae Critter
-	 * @param stego, the Stego critter to calculate the distace for
-	 * @param crit, the other critter to find the distance to
-	 * @return the integer representation of the distance from stego to crit
-	 */
-	private int compareDistance(Stego stego, Critter crit) {
-		//the getX_coord functions do not work on critters, so we must type cast the critters to Algae
-		Algae algae = (Algae) crit;
-		return ( (int) Math.sqrt((Math.pow(stego.getX_coord() - algae.getX_coord(), 2) + Math.pow(stego.getY_coord() - algae.getY_coord(), 2))) );
-	}
 	
-	/**
-	 * Move the stego toward the algae critter
-	 * @param stego, the Stego critter to move
-	 * @param algae, the Algae critter to move toward
-	 * @return the direction the Stego should move to get to the algae
-	 */
-	private int moveTowardAlgae(Stego stego, Algae algae) {
-		//if the x positions are different move toward the Algae in the x direction
-		if (stego.getX_coord() != algae.getX_coord()) {
-			if (stego.getX_coord() > algae.getX_coord()) {
-				return 4;
-			}
-			else {
-				return 0;
-			}
-		}
-		
-		//if the y positions are different move toward the Algae in the y direction
-		else if (stego.getY_coord() != algae.getY_coord()) {
-			if (stego.getY_coord() > algae.getY_coord()) {
-				return 2;
-			}
-			else {
-				return 6;
-			}
-		}
-		
-		//if the coordinants are the same just return a random direction
-		else {
-			return (dir);
-		}
-		
-	}
 	
 	@Override
 	public CritterShape viewShape() {

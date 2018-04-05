@@ -1,14 +1,14 @@
-package assignment4;
+package assignment5;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import assignment4.Critter;
-import assignment4.InvalidCritterException;
-
 import org.junit.Test;
+
+import assignment5.Critter;
+import assignment5.InvalidCritterException;
 
 public class CrittersJunit {
 

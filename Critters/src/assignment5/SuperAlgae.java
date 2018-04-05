@@ -1,4 +1,4 @@
-package assignment4;
+package assignment5;
 
 /* CRITTERS SuperAlgae.java
  * EE422C Project 4 submission by
@@ -15,7 +15,7 @@ package assignment4;
 
 import java.util.List;
 
-import assignment4.Critter.TestCritter;
+import assignment5.Critter.TestCritter;
 
 public class SuperAlgae extends TestCritter {
 

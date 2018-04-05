@@ -1,4 +1,4 @@
-package assignment4;
+package assignment5;
 
 /**
  * A special error for invalid critter types

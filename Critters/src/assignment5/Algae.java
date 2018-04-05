@@ -1,12 +1,9 @@
-package assignment4;
+package assignment5;
 
 import java.util.List;
 
-import assignment4.Critter.CritterShape;
-/*
- * Do not change or submit this file.
- */
-import assignment4.Critter.TestCritter;
+import assignment5.Critter.CritterShape;
+import assignment5.Critter.TestCritter;
 
 public class Algae extends TestCritter {
 

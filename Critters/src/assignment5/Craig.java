@@ -1,8 +1,8 @@
-package assignment4;
+package assignment5;
 
 import java.lang.reflect.Method;
 
-import assignment4.Critter.CritterShape;
+import assignment5.Critter.CritterShape;
 /*
  * Example critter
  * Do not change or submit this file.

@@ -1,4 +1,4 @@
-package assignment4;
+package assignment5;
 /* CRITTERS Critter.java
  * EE422C Project 4 submission by
  * Replace <...> with your actual data.
@@ -623,6 +623,7 @@ public abstract class Critter {
 	protected final String look(int direction, boolean steps) {
 		int tempXCoord = x_coord;
 		int tempYCoord = y_coord;
+		this.energy = this.energy - Params.look_energy_cost;
 		String onSiteCritters = "";
 		if(!steps) {//false one step
 			switch (direction) {

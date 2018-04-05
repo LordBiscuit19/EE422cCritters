@@ -1,4 +1,4 @@
-package assignment4;
+package assignment5;
 
 /* CRITTERS Stego.java
  * EE422C Project 4 submission by
@@ -15,8 +15,8 @@ package assignment4;
 
 import java.util.List;
 
-import assignment4.Critter.CritterShape;
-import assignment4.Critter.TestCritter;
+import assignment5.Critter.CritterShape;
+import assignment5.Critter.TestCritter;
 
 public class Stego extends TestCritter {
 

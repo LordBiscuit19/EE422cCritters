@@ -3,6 +3,7 @@ package assignment4;
 import java.util.List;
 
 import javafx.application.*;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.event.*;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -28,10 +29,12 @@ public class View{
 	
 	Canvas critterCanvas;
 	
-	static int spriteScaler=10;
+	//ReadOnlyDoubleProperty<Double> doubleSize = new ReadOnlyDoubleProperty<Double>();
+	
+	static int spriteScaler=20;
 	static int num_rows = Params.world_width;
 	static int num_cols = Params.world_height;
-	static int size = 10;
+	static int size = 20;
 	
 	
 	public View(Stage stage) {
@@ -53,7 +56,8 @@ public class View{
 		for (int r = 0; r < num_rows; r++) {
 			for (int c = 0; c < num_cols; c++) {
 				Shape s = new Rectangle (size,size);
-				s.setFill(null);;
+				s.setFill(null);
+				s.setStrokeWidth(1);
 				s.setStroke(Color.BLACK);
 				grid.add(s, c, r);
 			}
@@ -105,29 +109,34 @@ public class View{
 			
 			case DIAMOND : Polygon diamond = new Polygon();
 			Double resize =(double) size;
+			resize=(double) size;
 			diamond.getPoints().addAll(new Double[] {	
-				((resize*0.9)/2) , resize-resize,
-				(resize*0.9), ((resize*0.9)/2),
-				((resize*0.9)/2.0), resize*0.9,
-				resize-resize , ((resize*0.9)/2.0),
+				((resize)/2) , 0.0,
+				(resize), ((resize)/2),
+				((resize)/2.0), resize,
+				0.0 , ((resize)/2.0),
 				
 			});
 			diamond.setFill(crit.viewFillColor());
 			diamond.setStroke(crit.viewOutlineColor());
+		
 			gridPane.add(diamond, x, y);
 			
 			case STAR : Polygon star = new Polygon();
+			Double resizeStar =(double) size;
+			resizeStar = 40.0;
+			
 			star.getPoints().addAll(new Double [] {
-					0.0 , 0.6*size,
-					0.3*size , 0.4*size,
-					0.2*size , 0.0,
-					0.5*size , 0.2*size,
-					0.8*size , 0.0,
-					0.7*size , 0.4*size,
-					1.0*size , 0.6*size,
-					0.6*size , 0.6*size,
-					0.4*size , 0.6*size, 
-					0.5*size , size*1.0,	
+					0.0 , 0.6*resizeStar,
+					0.3*resizeStar , 0.4*resizeStar,
+					0.2*resizeStar , 0.0,
+					0.5*resizeStar , 0.2*resizeStar,
+					0.8*resizeStar , 0.0,
+					0.7*resizeStar , 0.4*resizeStar,
+					1.0*resizeStar , 0.6*resizeStar,
+					0.6*resizeStar , 0.6*resizeStar,
+					0.4*resizeStar , 0.6*resizeStar, 
+					0.5*resizeStar , resizeStar*1.0,	
 			});
 			star.setFill(crit.viewFillColor());
 			star.setStroke(crit.viewOutlineColor());

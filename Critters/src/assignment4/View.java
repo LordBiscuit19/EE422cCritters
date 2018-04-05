@@ -38,7 +38,7 @@ public class View{
 	
 	static int num_rows = Params.world_width;
 	static int num_cols = Params.world_height;
-	static int size = 10;	//the size scaler of the world
+	static int size = 750/(num_rows);	//the size scaler of the world
 	
 	
 	/**
@@ -48,6 +48,7 @@ public class View{
 	public View(Stage stage) {
 		primaryStage = stage;
 		gridPane = new GridPane();
+		//primaryScene = new Scene(gridPane, 500, 500);
 		primaryScene = new Scene(gridPane, num_rows*size, num_cols*size);
 		primaryStage.setTitle("critters");
 		primaryStage.setScene(primaryScene);

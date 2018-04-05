@@ -81,7 +81,7 @@ public class Main extends Application {
 			try {
 				List<Critter> listOfCrits = Critter.getInstances(critterStats);
 				String critter_class_name;
-				critter_class_name = "assignment4." + critterStats;
+				critter_class_name = "assignment5." + critterStats;
 				Class<?> c = Class.forName(critter_class_name);
 				Method method = c.getMethod("runStats", List.class  );
 				view.addText(method.invoke(c, listOfCrits).toString());
@@ -92,27 +92,27 @@ public class Main extends Application {
 			catch( InvalidCritterException e2)
 			{
 				System.out.println("error processing: " + critterStats);
-				view.addText("error processing: " + critterStats);
+				view.addText("error processing: " + critterStats + "\n");
 			}
 			catch (NoSuchMethodException e2) {
 				System.out.println("error processing: " + critterStats);
-				view.addText("error processing: " + critterStats);
+				view.addText("error processing: " + critterStats  + "\n");
 			}
 			catch (ClassNotFoundException e2) {
 				System.out.println("error processing: " + critterStats);
-				view.addText("error processing: " + critterStats);
+				view.addText("error processing: " + critterStats  + "\n");
 			}
 			catch (InvocationTargetException e2) {
 				System.out.println("error processing: " + critterStats);
-				view.addText("error processing: " + critterStats);
+				view.addText("error processing: " + critterStats  + "\n");
 			} 
 			catch (IllegalAccessException e2) {
 				System.out.println("error processing: " + critterStats);
-				view.addText("error processing: " + critterStats);
+				view.addText("error processing: " + critterStats  + "\n");
 			} 
 			catch (IllegalArgumentException e2) {
 				System.out.println("error processing: " + critterStats);
-				view.addText("error processing: " + critterStats);
+				view.addText("error processing: " + critterStats  + "\n");
 			}
     	}
     }
@@ -206,7 +206,7 @@ public class Main extends Application {
 		    				List<Critter> listOfCrits = Critter.getInstances(statsText.getText());
 		    				String critter_class_name;	//the type of critter to display stats of
 		    				
-		    				critter_class_name = "assignment4." + statsText.getText();
+		    				critter_class_name = "assignment5." + statsText.getText();
 		    				Class<?> c = Class.forName(critter_class_name);
 		    				Method method = c.getMethod("runStats", List.class);
 		    				view.addText(method.invoke(c, listOfCrits).toString());
@@ -217,32 +217,32 @@ public class Main extends Application {
 		        		catch( InvalidCritterException e2)
 		        		{
 		        			System.out.println("error processing: " + statsText.getText());
-		        			view.addText("error processing: " + statsText.getText());
+		        			view.addText("error processing: " + statsText.getText()  + "\n");
 		    				statsStage.close();
 		        		}
 		        		catch (NoSuchMethodException e2) {
 		        			System.out.println("error processing: " + statsText.getText());
-		        			view.addText("error processing: " + statsText.getText());
+		        			view.addText("error processing: " + statsText.getText()  + "\n");
 		    				statsStage.close();
 		        		}
 		        		catch (ClassNotFoundException e2) {
 		        			System.out.println("error processing: " + statsText.getText());
-		        			view.addText("error processing: " + statsText.getText());
+		        			view.addText("error processing: " + statsText.getText()  + "\n");
 		    				statsStage.close();
 		        		}
 		        		catch (InvocationTargetException e2) {
 		        			System.out.println("error processing: " + statsText.getText());
-		        			view.addText("error processing: " + statsText.getText());
+		        			view.addText("error processing: " + statsText.getText() + "\n");
 		    				statsStage.close();
 		        		} 
 		        		catch (IllegalAccessException e2) {
 							System.out.println("error processing: " + statsText.getText());
-							view.addText("error processing: " + statsText.getText());
+							view.addText("error processing: " + statsText.getText()  + "\n");
 		    				statsStage.close();
 						} 
 		        		catch (IllegalArgumentException e2) {
 							System.out.println("error processing: " + statsText.getText());
-							view.addText("error processing: " + statsText.getText());
+							view.addText("error processing: " + statsText.getText()  + "\n");
 		    				statsStage.close();
 						}
 					}
@@ -284,7 +284,7 @@ public class Main extends Application {
 						}
 						catch (InvalidCritterException e2) {
 							System.out.println("error processing: " + makeCritterField.getText());
-							view.addText("error processing: " + makeCritterField.getText());
+							view.addText("error processing: " + makeCritterField.getText()  + "\n");
 							makeStage.close();
 						}
 					}

@@ -38,7 +38,7 @@ public class View{
 	
 	static int num_rows = Params.world_width;
 	static int num_cols = Params.world_height;
-	static int size = 15;	//the size scaler of the world
+	static int size = 10;	//the size scaler of the world
 	
 	
 	/**
@@ -78,7 +78,7 @@ public class View{
 		for (int r = 0; r < num_rows; r++) {
 			for (int c = 0; c < num_cols; c++) {
 				Shape s = new Rectangle (size,size);
-				s.setFill(null);;
+				s.setFill(null);
 				s.setStroke(Color.BLACK);
 				grid.add(s, c, r);
 			}
@@ -129,43 +129,51 @@ public class View{
 			
 			case TRIANGLE : Polygon triangle = new Polygon ();
 			triangle.getPoints().addAll(new Double[]{
-					0.0 , size-3.0,
-					size-3.0 , size-3.0,
-					(size-3.0)/2 , 0.0, 	
+					0.0 , size-0.0,
+					size-0.0 , size-0.0,
+					size/2.0 , 0.0, 	
 			});
 			triangle.setFill(crit.viewFillColor());
 			triangle.setStroke(crit.viewOutlineColor());
+			triangle.setStrokeWidth(0);
 			gridPane.add(triangle, x, y);
 			break;
 			
 			case DIAMOND : Polygon diamond = new Polygon();
 			Double resize =(double) size;
+			resize = resize*1.0;
 			diamond.getPoints().addAll(new Double[] {	
-				((resize*0.9)/2) , resize-resize,
-				(resize*0.9), ((resize*0.9)/2),
-				((resize*0.9)/2.0), resize*0.9,
-				resize-resize , ((resize*0.9)/2.0),
+				(resize/2) , 0.2,
+				resize, (resize/2),
+				(resize/2), resize,
+				0.2 , (resize/2),
 				
 			});
 			diamond.setFill(crit.viewFillColor());
 			diamond.setStroke(crit.viewOutlineColor());
+			diamond.setStrokeWidth(0);
 			gridPane.add(diamond, x, y);
+			break; 
 			
 			case STAR : Polygon star = new Polygon();
+			Double reSize = (double)size;
+			reSize = reSize*1.0;
 			star.getPoints().addAll(new Double [] {
-					0.0 , 0.6*size,
-					0.3*size , 0.4*size,
-					0.2*size , 0.0,
-					0.5*size , 0.2*size,
-					0.8*size , 0.0,
-					0.7*size , 0.4*size,
-					1.0*size , 0.6*size,
-					0.6*size , 0.6*size,
-					0.4*size , 0.6*size, 
-					0.5*size , size*1.0,	
+					0.2 , 0.6*reSize,
+					0.3*reSize , 0.4*reSize,
+					0.2*reSize , 0.5,
+					0.5*reSize , 0.2*reSize,
+					0.8*reSize , 0.5,
+					0.7*reSize , 0.4*reSize,
+					reSize , 0.6*reSize,
+					0.6*reSize , 0.6*reSize,
+					0.5*reSize , reSize,
+					0.4*reSize , 0.6*reSize, 
+						
 			});
 			star.setFill(crit.viewFillColor());
 			star.setStroke(crit.viewOutlineColor());
+			star.setStrokeWidth(0);
 			gridPane.add(star, x, y);
 			
 		}

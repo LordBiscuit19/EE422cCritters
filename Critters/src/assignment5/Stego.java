@@ -66,7 +66,7 @@ public class Stego extends TestCritter {
 
 	
 	public static String runStats(List<Critter> stegos) {
-		return "There are currently " + stegos.size() + " stegos represented as purple circles \n";
+		return "There are currently " + stegos.size() + " stegos represented as purple purple triangles \n";
 		
 	}
 	
@@ -76,7 +76,7 @@ public class Stego extends TestCritter {
 	@Override
 	public CritterShape viewShape() {
 		
-		return CritterShape.CIRCLE;
+		return CritterShape.TRIANGLE;
 	}
 	@Override
 	public javafx.scene.paint.Color viewFillColor(){

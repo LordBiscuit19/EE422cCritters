@@ -44,23 +44,23 @@ public class SuperAlgae extends TestCritter {
 	}
 	
 	public static String runStats(List<Critter> superAlgaes) {
-		return "There are currently " + superAlgaes.size() + " superAlgaes represented as red circles \n";
+		return "There are currently " + superAlgaes.size() + " superAlgaes represented as orange stars \n";
 		
 	}
 
 	@Override
 	public CritterShape viewShape() {
 		
-		return CritterShape.CIRCLE;
+		return CritterShape.STAR;
 	}
 	@Override
 	public javafx.scene.paint.Color viewFillColor(){
-		return javafx.scene.paint.Color.RED;
+		return javafx.scene.paint.Color.ORANGE;
 	}
 	
 	@Override
 	public javafx.scene.paint.Color viewOutlineColor(){
-		return javafx.scene.paint.Color.RED;
+		return javafx.scene.paint.Color.ORANGE;
 	}
 	
 }
